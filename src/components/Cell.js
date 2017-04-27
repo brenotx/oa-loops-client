@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import { Col } from 'react-bootstrap';
 
 class Cell extends Component {
     active() {
@@ -11,6 +12,8 @@ class Cell extends Component {
             className += ' active';
         }
         return (
+            // <Col className={className}>
+            // </Col>
             <div className={className}>
             </div>
         );
