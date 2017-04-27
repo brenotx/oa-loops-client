@@ -9,7 +9,7 @@ import { Glyphicon, Button } from 'react-bootstrap';
 //     }
 // }
 //
-// export default Instruction
+// export default Instruction;
 
 export default (props) => {
     return (
