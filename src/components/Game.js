@@ -4,7 +4,6 @@ import _ from 'lodash';
 
 // import Row from './Row';
 import Cell from './Cell';
-import Program from './Program';
 import Instructions from './Instructions';
 import Code from './Code';
 

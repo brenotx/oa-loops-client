@@ -1,19 +1,10 @@
 import { combineReducers } from 'redux';
 import InstructionsReducer from './instructions_reducer';
+import MainInstructionsReducer from './instructions_actions';
 
 const rootReducer = combineReducers({
-    instructions: InstructionsReducer
+    instructions: InstructionsReducer,
+    mainInstructions: MainInstructionsReducer
 });
 
 export default rootReducer;
-
-// import { List, Map } from 'immutable';
-// import { ADD_INSTRUCTION } from '../actions';
-//
-// export default function(state = null, action) {
-//     switch (action.type) {
-//         case ADD_INSTRUCTION:
-//             return action.payload;
-//     }
-//     return state;
-// }
