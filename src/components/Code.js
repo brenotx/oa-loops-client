@@ -3,24 +3,32 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Panel, Col, Glyphicon, Button } from 'react-bootstrap';
 
-import { removeInstruction } from '../actions/index';
+import { removeInstruction, setSelectedBox } from '../actions/index';
 
 class Code extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = { selectedBox: '' };
-    }
+    // constructor(props) {
+    //     super(props);
+    //
+    //     this.state = { selectedBox: '' };
+    // }
     getMainInstructions() {
         return this.props.instructionReducer.get('mainInstructions') || [];
     }
 
-    setSelectedBox(boxName) {
-        this.setState({ selectedBox: boxName });
+    getProgInstructions() {
+        return this.props.instructionReducer.get('progInstructions') || [];
     }
 
+    // setSelectedBox(boxName) {
+    //     this.props.instructionReducer.set('selectedBox', boxName);
+    //     this.setState({ selectedBox: boxName });
+    // }
+
+    /**
+    * Whenever the selectedBox changes this method is called.
+    */
     isActive(boxName) {
-        if (boxName === this.state.selectedBox) {
+        if (boxName === this.props.instructionReducer.get('selectedBox')) {
             return 'jumbotron active-box';
         } else {
             return 'jumbotron';
@@ -32,7 +40,7 @@ class Code extends Component {
             <Col>
                 <Panel header="Código">
                     <h5>Main:</h5>
-                    <div className={this.isActive('main')} onClick={() => this.setSelectedBox('main')}>
+                    <div className={this.isActive('main')} onClick={() => this.props.setSelectedBox('main')}>
                         {this.getMainInstructions().map( (icon, idx) =>
                             <Button key={idx} bsStyle="primary" onClick={ () => this.props.removeInstruction(idx)}>
                                 <Glyphicon glyph={icon} />
@@ -40,11 +48,12 @@ class Code extends Component {
                         )}
                     </div>
                     <h5>Prog1:</h5>
-                    <div className={this.isActive('prog')} onClick={() => this.setSelectedBox('prog')}>
-                        <Button bsStyle="primary"><Glyphicon glyph="arrow-right" /></Button>
-                        <Button bsStyle="primary"><Glyphicon glyph="arrow-right" /></Button>
-                        <Button bsStyle="primary"><Glyphicon glyph="arrow-right" /></Button>
-                        <Button bsStyle="primary"><Glyphicon glyph="arrow-right" /></Button>
+                    <div className={this.isActive('prog')} onClick={() => this.props.setSelectedBox('prog')}>
+                        {this.getProgInstructions().map( (icon, idx) =>
+                            <Button key={idx} bsStyle="primary" onClick={ () => this.props.removeInstruction(idx)}>
+                                <Glyphicon glyph={icon} />
+                            </Button>
+                        )}
                     </div>
                 </Panel>
             </Col>
@@ -59,7 +68,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ removeInstruction }, dispatch);
+    return bindActionCreators({ removeInstruction, setSelectedBox }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Code);
