@@ -1,10 +1,8 @@
 import { combineReducers } from 'redux';
-import InstructionsReducer from './instructions_reducer';
-import MainInstructionsReducer from './instructions_actions';
+import InstructionReducer from './instructions_reducer';
 
 const rootReducer = combineReducers({
-    instructions: InstructionsReducer,
-    mainInstructions: MainInstructionsReducer
+    instructionReducer: InstructionReducer
 });
 
 export default rootReducer;

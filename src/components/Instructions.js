@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { List } from 'immutable';
 import { Col, Panel, Glyphicon, Button } from 'react-bootstrap';
 
-import Instruction from './Instruction';
 import { addInstruction } from '../actions/index';
 
 class Instructions extends Component {
     getInstructions() {
-        return this.props.instructions || [];
+        return this.props.instructionReducer.get('instructions') || [];
     }
 
     render() {
@@ -34,7 +32,9 @@ class Instructions extends Component {
 
 function mapStateToProps(state) {
     return {
-        instructions: state.instructions
+        instructionReducer: state.instructionReducer
+        // instructions: state.instructions,
+        // mainInstructions: state.mainInstructions
     };
 }
 
