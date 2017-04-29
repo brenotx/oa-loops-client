@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Panel, Col, Glyphicon, Button } from 'react-bootstrap';
+import { Panel, Col, Glyphicon, ButtonToolbar, Button } from 'react-bootstrap';
 
-import { removeInstruction, setSelectedBox } from '../actions/index';
+import { removeInstruction, setSelectedBox, resetApp } from '../actions/index';
 
 class Code extends Component {
     // constructor(props) {
@@ -55,6 +55,10 @@ class Code extends Component {
                             </Button>
                         )}
                     </div>
+                    <ButtonToolbar>
+                        <Button className="pull-right" bsStyle="primary">Executar</Button>
+                        <Button className="pull-right" bsStyle="primary" onClick={() => this.props.resetApp()}>Resetar</Button>
+                    </ButtonToolbar>
                 </Panel>
             </Col>
         );
@@ -68,7 +72,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ removeInstruction, setSelectedBox }, dispatch);
+    return bindActionCreators({ removeInstruction, setSelectedBox, resetApp }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Code);

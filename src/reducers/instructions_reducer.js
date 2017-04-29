@@ -2,7 +2,8 @@ import { List, Map } from 'immutable';
 
 import { ADD_INSTRUCTION,
          REMOVE_INSTRUCTION,
-         SET_SELECTEDBOX } from '../actions/index'
+         SET_SELECTEDBOX,
+         RESET_APP } from '../actions/index'
 
 const initialState = Map({
     selectedBox: 'main',
@@ -11,7 +12,7 @@ const initialState = Map({
     progInstructions: List()
 });
 
-// TODO: Apply TRY principles
+// TODO: Apply TRY principle
 export default function(state = initialState, action) {
     switch (action.type) {
         case ADD_INSTRUCTION:
@@ -20,17 +21,19 @@ export default function(state = initialState, action) {
             } else if (state.get('selectedBox') === 'prog') {
                 return state = state.update('progInstructions', list => list.push(action.instruction));
             }
-            // return state.set('mainInstructions', state.get('mainInstructions').push(action.instruction));
-
+            break;
         case REMOVE_INSTRUCTION:
             if (state.get('selectedBox') === 'main') {
                 return state.set('mainInstructions', state.get('mainInstructions').delete(action.idx));
             } else if (state.get('selectedBox') === 'prog') {
                 return state.set('progInstructions', state.get('progInstructions').delete(action.idx));
             }
-
+            break;
         case SET_SELECTEDBOX:
             return state.set('selectedBox', action.boxName);
+
+        case RESET_APP:
+            return state = initialState;
 
         default:
              return state;
