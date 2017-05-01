@@ -25,7 +25,6 @@ export const setSelectedBox = (boxName) => {
 }
 
 export const resetApp = () => {
-    console.log("oi")
     return {
         type: RESET_APP
     }

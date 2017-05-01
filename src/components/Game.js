@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, PageHeader } from 'react-bootstrap';
-import _ from 'lodash';
+import { List } from 'immutable';
 
-// import Row from './Row';
 import Cell from './Cell';
 import Instructions from './Instructions';
 import Code from './Code';
@@ -21,9 +20,8 @@ class Game extends Component {
             this.matrix.push(row);
         }
 
-        // let flatMatrix = _.flatten(this.matrix);
-        // this.activeCells = _.sampleSize(flatMatrix, this.props.activeCellsCount);
-        this.activeCells = ["20", "21", "22", "23", "13", "14"];
+        // List with the sequence of cels representing the game path
+        this.gamePath = List(["20", "21", "31", "32", "33", "23", "24"]);
     }
 
     render() {
@@ -37,7 +35,7 @@ class Game extends Component {
                                 {this.matrix.map((row, idx) => (
                                     <Row key={idx}>
                                         {row.map(cellId => <Cell key={cellId} id={cellId}
-                                            activeCells={this.activeCells} />)}
+                                            gamePath={this.gamePath} />)}
                                         </Row>
                                     ))}
                             </Col>
@@ -47,7 +45,7 @@ class Game extends Component {
                         </Row>
                     </Col>
                     <Col md={6}>
-                        <Code />
+                        <Code gamePath={this.gamePath} />
                     </Col>
                 </Row>
             </Grid>

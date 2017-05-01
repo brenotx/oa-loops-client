@@ -1,45 +1,35 @@
-import React, { Component } from 'react';
-
-class Footer extends Component {
-    remainingCount() {
-        if (this.props.gameState !== 'recall') {return null;}
-        return (
-            <div className="remaining-count">
-                {this.props.activeCellsCount - this.props.correctGuesses.length}
-            </div>
-        );
-    }
-    playAgainButton() {
-        if (["won", "lost"].indexOf(this.props.gameState) >= 0) {
-            return (
-                <button className="play-again-button"
-                onClick={this.props.playAgain}>
-                Play Again
-                </button>
-            );
+"use strict"
+// TODO: IF the user add more instructions than needed, the user wins anyways
+// let path = [ "20", "21", "31", "32", "33", "23", "24" ];
+// let moves = [ "arrow-right", "arrow-down", "arrow-right", "arrow-right", "arrow-up", "arrow-right" ];
+let path = [ "00", "01", "02", "03", "04" ];
+let moves = [ "arrow-right", "arrow-right", "arrow-right", "arrow-right" ]
+let validMoves = {
+     "arrow-right": 1,
+     "arrow-left": -1,
+     "arrow-up": -10,
+     "arrow-down": 10
+};
+function testCode(path, moves) {
+    debugger;
+    if (path.length > 1 && moves.length > 0) {
+        let start = path[0];
+        let next = path[1];
+        let move = moves[0];
+        let difference = next - start; // TODO: String???
+        if (validMoves[move] === difference) {
+            console.log("good move");
+            let newPath = path.splice(1);
+            let newMoves = moves.splice(1);
+            testCode(newPath, newMoves);
+        } else {
+            console.log("bad move");
+            console.log("you lost");
+            return;
         }
-    }
-    render() {
-        return (
-            <div className="footer">
-                <div className="hint">
-                    {this.props.hints[this.props.gameState]}...
-                </div>
-                {this.remainingCount()}
-                {this.playAgainButton()}
-            </div>
-        );
+    } else {
+        console.log("You own");
+        return;
     }
 }
-
-Footer.defaultProps = {
-    hints: {
-        ready: "Get Ready",
-        memorize: "Memorize",
-        recall: "Recall",
-        won: "Well Played",
-        lost: "Game Over"
-    }
-};
-
-export default Footer;
+testCode(path, moves);
