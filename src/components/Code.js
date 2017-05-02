@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Map } from 'immutable';
+import { Map, List } from 'immutable';
 import { Panel, Col, Glyphicon, ButtonToolbar, Button } from 'react-bootstrap';
 
 import { removeInstruction, setSelectedBox, resetApp } from '../actions/index';
+
 
 class Code extends Component {
     constructor(props) {
         super(props);
 
+        this.state = { repeatProg: 0 };
         this.runCode = this.runCode.bind(this);
     }
 
@@ -34,7 +36,11 @@ class Code extends Component {
 
     runCode() {
         const path = this.props.gamePath;
-        const moves = this.props.instructionReducer.get('mainInstructions');
+        const progMoves = this.props.instructionReducer.get('progInstructions');
+        let moves = this.props.instructionReducer.get('mainInstructions');
+        moves = applyLoopInstructions(moves);
+
+        // TODO: Use the constants.js file
         const validMoves = Map({
              "arrow-right": 1,
              "arrow-left": -1,
@@ -43,6 +49,36 @@ class Code extends Component {
         });
 
         checkCode(path, moves);
+
+        /**
+        * Give a list of moves, replace the 'repeat' move to mainInstructions
+        * instructions
+        * @params { Immutable.List() } moves
+        * @return { Immutable.List() } moves
+        */
+        function applyLoopInstructions(moves) {
+            moves.map((elem, idx) => {
+                if (elem === 'repeat') {
+                    moves = moves.update(idx, val => progMoves);
+                    moves =  List().concat(...moves);
+                    applyLoopInstructions(moves);
+                }
+            });
+            return moves;
+        }
+
+        repeatProgMoves();
+        /**
+        *
+        *
+        */
+        function repeatProgMoves() {
+            let progMovesRepeated = List();
+            for (let i = 0; i < 2; i++) {
+                progMovesRepeated = progMovesRepeated.concat(progMoves);
+            }
+            return progMovesRepeated;
+        }
 
         /**
         * Based of the difference between maxtix cell path
@@ -57,7 +93,7 @@ class Code extends Component {
                     let move = moves.first();
                     let difference = next - start; // TODO: String???
                     if (validMoves.get(move) === difference) {
-                        console.log("good move");
+                        console.log(`good move -> ${move}`);
                         let newPath = path.shift();
                         let newMoves = moves.shift();
                         checkCode(newPath, newMoves);
@@ -77,6 +113,21 @@ class Code extends Component {
         }
     }
 
+    renderSelect() {
+        return (
+            // TODO: Use Reat-boostrap, Add Prog1 label
+            <label className="control-label">Repetir:
+            <input className="form-control" type="number"
+                value={this.state.repeatProg} min="0" max="10"
+                onChange={event => this.onInputChange(event.target.value)}/>
+            </label>
+        );
+    }
+
+    onInputChange(repeatProg) {
+        this.setState({repeatProg});
+    }
+
     render() {
         return (
             <Col>
@@ -89,7 +140,8 @@ class Code extends Component {
                             </Button>
                         )}
                     </div>
-                    <h5>Prog:</h5>
+                    {/* <h5>Prog:</h5> */}
+                    {this.renderSelect()}
                     <div className={this.isActive('prog')} onClick={() => this.props.setSelectedBox('prog')}>
                         {this.getProgInstructions().map( (icon, idx) =>
                             <Button key={idx} bsStyle="primary" onClick={ () => this.props.removeInstruction(idx)}>
