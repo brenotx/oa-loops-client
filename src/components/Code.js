@@ -7,11 +7,89 @@ import { Panel, Col, Glyphicon, ButtonToolbar, Button } from 'react-bootstrap';
 import { removeInstruction, setSelectedBox, resetApp } from '../actions/index';
 
 
+// TODO: Use the constants.js file
+const _validMoves = Map({
+     "arrow-right": 1,
+     "arrow-left": -1,
+     "arrow-up": -10,
+     "arrow-down": 10
+});
+
+// TODO: You don't need two List()
+/**
+* Repeat the list elements for the given multiplier.
+* @param  {number} repeatProg - The number of repeats.
+* @param  {Immutable.List} progMoves - List with instructions.
+* @return {Immutable.List} List with multiplied instructions.
+*/
+const _repeatProgMoves = (repeatProg, progMoves) => {
+    if (repeatProg > 1 && progMoves.size) {
+        let progMovesRepeated = List();
+        for (let i = 0; i < repeatProg; i++) {
+            progMovesRepeated = progMovesRepeated.concat(progMoves);
+        }
+        return progMovesRepeated;
+    } else {
+        return progMoves;
+    }
+}
+
+/**
+ * Based of the difference between maxtix cell path check if the move is correct.
+ * @param  {Immutable.List} path - The problem instructions path.
+ * @param  {Immutable.List} moves - The user given instructions.
+ * @return {type} // TODO
+ */
+const _checkCode = (path, moves) => {
+    // Check if we have enough to solve the problem
+    if (path.size - 1 === moves.size) {
+        if (path.size > 1 && moves.size > 0) {
+            let start = path.first();
+            let next = path.get(1);
+            let move = moves.first();
+            let difference = next - start; // TODO: Check, String???
+            if (_validMoves.get(move) === difference) {
+                console.log(`good move -> ${move}`);
+                let newPath = path.shift();
+                let newMoves = moves.shift();
+                _checkCode(newPath, newMoves);
+            } else {
+                console.log("bad move");
+                console.log("you lost");
+                return;
+            }
+        } else {
+            console.log("You own");
+            return;
+        }
+    } else {
+        console.log("you lost");
+        return;
+    }
+}
+
+/**
+ * Give a list of moves, replace the 'repeat' move with progMoves instructions.
+ * @params { Immutable.List() } moves - The user given instructions.
+ * @return { Immutable.List() } moves - Final list with 'repeat' strings replaced
+ * for the prog instructions.
+ */
+function _applyLoopInstructions(moves, progMoves) {
+    moves.map((elem, idx) => {
+        if (elem === 'repeat') {
+            moves = moves.update(idx, val => progMoves);
+            moves =  List().concat(...moves);
+            _applyLoopInstructions(moves);
+        }
+    });
+    return moves;
+}
+
 class Code extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { repeatProg: 0 };
+        this.state = { repeatProg: 1 };
         this.runCode = this.runCode.bind(this);
     }
 
@@ -36,81 +114,15 @@ class Code extends Component {
 
     runCode() {
         const path = this.props.gamePath;
-        const progMoves = this.props.instructionReducer.get('progInstructions');
+        const repeatProg = this.state.repeatProg;
+
+        let progMoves = this.props.instructionReducer.get('progInstructions');
         let moves = this.props.instructionReducer.get('mainInstructions');
-        moves = applyLoopInstructions(moves);
 
-        // TODO: Use the constants.js file
-        const validMoves = Map({
-             "arrow-right": 1,
-             "arrow-left": -1,
-             "arrow-up": -10,
-             "arrow-down": 10
-        });
+        progMoves = _repeatProgMoves(repeatProg, progMoves);
+        moves = _applyLoopInstructions(moves, progMoves);
 
-        checkCode(path, moves);
-
-        /**
-        * Give a list of moves, replace the 'repeat' move to mainInstructions
-        * instructions
-        * @params { Immutable.List() } moves
-        * @return { Immutable.List() } moves
-        */
-        function applyLoopInstructions(moves) {
-            moves.map((elem, idx) => {
-                if (elem === 'repeat') {
-                    moves = moves.update(idx, val => progMoves);
-                    moves =  List().concat(...moves);
-                    applyLoopInstructions(moves);
-                }
-            });
-            return moves;
-        }
-
-        repeatProgMoves();
-        /**
-        *
-        *
-        */
-        function repeatProgMoves() {
-            let progMovesRepeated = List();
-            for (let i = 0; i < 2; i++) {
-                progMovesRepeated = progMovesRepeated.concat(progMoves);
-            }
-            return progMovesRepeated;
-        }
-
-        /**
-        * Based of the difference between maxtix cell path
-        * check if the move is correct.
-        */
-        function checkCode(path, moves) {
-            // Check if we have enough to solve the problem
-            if (path.size - 1 === moves.size) {
-                if (path.size > 1 && moves.size > 0) {
-                    let start = path.first();
-                    let next = path.get(1);
-                    let move = moves.first();
-                    let difference = next - start; // TODO: String???
-                    if (validMoves.get(move) === difference) {
-                        console.log(`good move -> ${move}`);
-                        let newPath = path.shift();
-                        let newMoves = moves.shift();
-                        checkCode(newPath, newMoves);
-                    } else {
-                        console.log("bad move");
-                        console.log("you lost");
-                        return;
-                    }
-                } else {
-                    console.log("You own");
-                    return;
-                }
-            } else {
-                console.log("you lost");
-                return;
-            }
-        }
+        _checkCode(path, moves);
     }
 
     renderSelect() {
@@ -118,14 +130,14 @@ class Code extends Component {
             // TODO: Use Reat-boostrap, Add Prog1 label
             <label className="control-label">Repetir:
             <input className="form-control" type="number"
-                value={this.state.repeatProg} min="0" max="10"
+                value={this.state.repeatProg} min="1" max="10"
                 onChange={event => this.onInputChange(event.target.value)}/>
             </label>
         );
     }
 
     onInputChange(repeatProg) {
-        this.setState({repeatProg});
+        this.setState({ repeatProg });
     }
 
     render() {

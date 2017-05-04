@@ -17,7 +17,7 @@ class Cell extends Component {
             // <Col className={className}>
             // </Col>
             <div className={className}>
-                {this.props.id}
+                {/* {this.props.id} */}
                 {/* <img className="pedestrianWalking" src={pedestrianWalking} alt="pedestrian-walking" width="25px" height="25px" /> */}
             </div>
         );
