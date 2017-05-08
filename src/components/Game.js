@@ -21,8 +21,9 @@ class Game extends Component {
         }
 
         // List with the sequence of cels representing the game path
-        this.gamePath = List(["20", "21", "31", "32", "33", "23", "24"]);
-        // this.gamePath = List(["20", "21", "22", "23", "24"]);
+        // this.gamePath = List(["20", "21", "31", "32", "33", "23", "24"]);
+        this.gamePath = List(["20", "21", "22", "23", "24"]);
+        // this.gamePath = List(["00", "10", "11", "01", "00"]);
     }
 
     render() {

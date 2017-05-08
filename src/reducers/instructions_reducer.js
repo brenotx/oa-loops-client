@@ -7,7 +7,7 @@ import { ADD_INSTRUCTION,
 
 const initialState = Map({
     selectedBox: 'main',
-    instructions: List([ 'arrow-right', 'repeat', 'arrow-up', 'arrow-down' ]),
+    instructions: List([ 'arrow-right', 'repeat', 'arrow-up', 'arrow-down', 'arrow-left' ]),
     mainInstructions: List(),
     progInstructions: List()
 });
