@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Map, List } from 'immutable';
-import { Panel, Col, Glyphicon, ButtonToolbar, Button } from 'react-bootstrap';
+import { Panel, Col, Glyphicon, ButtonToolbar, Button, Modal } from 'react-bootstrap';
 
-import { removeInstruction, setSelectedBox, resetApp } from '../actions/index';
+import { removeInstruction, setSelectedBox, resetApp, nextNivel } from '../actions/index';
 
 const validMoves = Map({
      "arrow-right": 1,
@@ -17,8 +17,10 @@ class Code extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { repeatProg: 1 };
+        this.state = { repeatProg: 1,
+                       showWinModal: false };
         this.runCode = this.runCode.bind(this);
+        this.renderModal = this.renderModal.bind(this);
     }
 
     getMainInstructions() {
@@ -40,9 +42,9 @@ class Code extends Component {
         }
     }
 
-    // TODO: Pure function
+    // TODO: Write a pure function
     runCode() {
-        const path = this.props.gamePath;
+        const path = this.props.gameNivel.get('path');
         const repeatProg = this.state.repeatProg;
 
         let progMoves = this.props.instructionReducer.get('progInstructions');
@@ -88,6 +90,7 @@ class Code extends Component {
                 moves =  List().concat(...moves);
                 this.applyLoopInstructions(moves);
             }
+            return moves;
         });
         return moves;
     }
@@ -118,6 +121,7 @@ class Code extends Component {
                     return;
                 }
             } else {
+                this.renderModal(true);
                 console.log("You own");
                 return;
             }
@@ -125,6 +129,11 @@ class Code extends Component {
             console.log("you lost");
             return;
         }
+    }
+
+    renderModal(boolean) {
+        this.props.nextNivel();
+        this.setState({ showWinModal: boolean });
     }
 
     renderSelect() {
@@ -168,6 +177,15 @@ class Code extends Component {
                         <Button className="pull-right" bsStyle="primary" onClick={() => this.props.resetApp()}>Resetar</Button>
                     </ButtonToolbar>
                 </Panel>
+        
+                <Modal show={this.state.showWinModal}>
+                        <Modal.Body>
+                            Parabéns você venceu!!!
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button onClick={() => this.renderModal(false)}>Continuar</Button>
+                        </Modal.Footer>
+                </Modal>
             </Col>
         );
     }
@@ -180,7 +198,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ removeInstruction, setSelectedBox, resetApp }, dispatch);
+    return bindActionCreators({ removeInstruction, setSelectedBox, resetApp, nextNivel }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Code);

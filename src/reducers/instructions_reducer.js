@@ -5,6 +5,7 @@ import { ADD_INSTRUCTION,
          SET_SELECTEDBOX,
          RESET_APP } from '../actions/index'
 
+// TODO: Use fromJS
 const initialState = Map({
     selectedBox: 'main',
     instructions: List([ 'arrow-right', 'repeat', 'arrow-up', 'arrow-down', 'arrow-left' ]),

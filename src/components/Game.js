@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Grid, Row, Col, PageHeader } from 'react-bootstrap';
-import { List } from 'immutable';
 
 import Cell from './Cell';
 import Instructions from './Instructions';
@@ -20,11 +20,19 @@ class Game extends Component {
             this.matrix.push(row);
         }
 
-        // List with the sequence of cels representing the game path
-        // this.gamePath = List(["20", "21", "31", "32", "33", "23", "24"]);
-        this.gamePath = List(["20", "21", "22", "23", "24"]);
-        // this.gamePath = List(["00", "10", "11", "01", "00"]);
+        this.gameNivel = this.props.gameNivel;
+
     }
+
+    getNivelPath(nivelId) {
+        return this.gameNivel.find((obj) => {
+            return obj.get('id') === nivelId;
+        });
+    }
+
+    // getCurrentNivelId() {
+    //     return this.props.nivelReducer.get('currentNivelId') || 0;
+    // }
 
     render() {
         return (
@@ -37,7 +45,7 @@ class Game extends Component {
                                 {this.matrix.map((row, idx) => (
                                     <Row key={idx}>
                                         {row.map(cellId => <Cell key={cellId} id={cellId}
-                                            gamePath={this.gamePath} />)}
+                                            gameNivel={this.getNivelPath(this.props.currentNivelId)} />)}
                                         </Row>
                                     ))}
                             </Col>
@@ -47,7 +55,7 @@ class Game extends Component {
                         </Row>
                     </Col>
                     <Col md={6}>
-                        <Code gamePath={this.gamePath} />
+                        <Code gameNivel={this.getNivelPath(this.props.currentNivelId)} />
                     </Col>
                 </Row>
             </Grid>
@@ -55,4 +63,11 @@ class Game extends Component {
     }
 }
 
-export default Game;
+function mapStateToProps(state) {
+    return {
+        currentNivelId: state.nivelReducer.get('currentNivelId'),
+        gameNivel: state.nivelReducer.get('gameNivel')
+    }
+}
+
+export default connect(mapStateToProps)(Game);

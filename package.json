@@ -13,7 +13,14 @@
     "redux": "^3.6.0"
   },
   "devDependencies": {
-    "react-scripts": "0.9.5"
+    "chai": "^3.5.0",
+    "chai-enzyme": "^0.6.1",
+    "enzyme": "^2.8.2",
+    "react-addons-test-utils": "^15.5.1",
+    "react-scripts": "0.9.5",
+    "react-test-renderer": "^15.5.4",
+    "redux-logger": "^3.0.1",
+    "sinon": "^2.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
