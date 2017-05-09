@@ -12,6 +12,11 @@ const initialState = fromJS({
         },
         {
             id: 1,
+            path: [ "20", "21", "31", "32", "33", "34" ],
+            instructions: [ 'arrow-right', 'repeat', 'arrow-up', 'arrow-down', 'arrow-left' ]
+        },
+        {
+            id: 2,
             path: [ "20", "21", "31", "32", "33", "23", "24" ],
             instructions: [ 'arrow-right', 'repeat', 'arrow-up', 'arrow-down', 'arrow-left' ]
         }
@@ -21,7 +26,7 @@ const initialState = fromJS({
 export default function(state = initialState, action) {
     switch (action.type) {
         case NEXT_NIVEL:
-            return state.set('currentNivelId', 1); 
+            return state.set('currentNivelId', state.get('currentNivelId') + 1); 
         default:
             return state;
     }
