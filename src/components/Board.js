@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
-import { List } from 'immutable';
 import { Row, Col } from 'react-bootstrap';
 
 import Cell from './Cell';

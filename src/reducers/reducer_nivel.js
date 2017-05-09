@@ -8,12 +8,12 @@ const initialState = fromJS({
         {
             id: 0,
             path: [ "20", "21", "22", "23", "24" ],
-            instuctions: [ 'arrow-right' ]
+            instructions: [ 'arrow-right', 'repeat' ]
         },
         {
             id: 1,
             path: [ "20", "21", "31", "32", "33", "23", "24" ],
-            instuctions: [ 'arrow-right', 'repeat', 'arrow-up', 'arrow-down', 'arrow-left' ]
+            instructions: [ 'arrow-right', 'repeat', 'arrow-up', 'arrow-down', 'arrow-left' ]
         }
     ]
 });

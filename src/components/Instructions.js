@@ -7,7 +7,8 @@ import { addInstruction } from '../actions/index';
 
 class Instructions extends Component {
     getInstructions() {
-        return this.props.instructionReducer.get('instructions') || [];
+        // return this.props.instructionReducer.get('instructions') || []
+        return this.props.gameNivel.get('instructions') || [];
     }
 
     render() {

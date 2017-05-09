@@ -13,6 +13,7 @@ const validMoves = Map({
      "arrow-down": 10
 });
 
+
 class Code extends Component {
     constructor(props) {
         super(props);
@@ -144,9 +145,11 @@ class Code extends Component {
         this.setState({ repeatProg });
     }
 
+    // TODO: Maybe you can do some refactoring in here
     continue() {
         this.setState({ showWinModal: false });
         this.props.nextNivel();
+        this.props.resetApp();
     }
 
     render() {
@@ -176,7 +179,7 @@ class Code extends Component {
                     </ButtonToolbar>
                 </Panel>
         
-                <Modal show={this.state.showWinModal}>
+                <Modal bsSize="small" show={this.state.showWinModal}>
                         <Modal.Body>
                             Parabéns você venceu!!!
                         </Modal.Body>

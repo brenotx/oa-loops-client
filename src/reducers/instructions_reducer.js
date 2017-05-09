@@ -8,7 +8,7 @@ import { ADD_INSTRUCTION,
 // TODO: Use fromJS
 const initialState = Map({
     selectedBox: 'main',
-    instructions: List([ 'arrow-right', 'repeat', 'arrow-up', 'arrow-down', 'arrow-left' ]),
+    // instructions: List([ 'arrow-right', 'repeat', 'arrow-up', 'arrow-down', 'arrow-left' ]),
     mainInstructions: List(),
     progInstructions: List()
 });
