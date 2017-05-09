@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Col, Panel, Glyphicon, Button } from 'react-bootstrap';
+import { Row, Col, Panel, Glyphicon, Button } from 'react-bootstrap';
 
 import { addInstruction } from '../actions/index';
 
@@ -12,20 +12,22 @@ class Instructions extends Component {
 
     render() {
         return (
-            <Col md={8} xsOffset={2}>
-                <Panel header="Instruções">
-                    {this.getInstructions().map( (icon, idx) =>
-                        <Button key={idx} bsStyle="primary" onClick={ () => this.props.addInstruction(icon)}>
-                            <Glyphicon glyph={icon} />
-                        </Button>
-                    )}
-                </Panel>
-                {/* <Panel header="Instruções">
-                    {this.getInstructions().map( (icon, idx) =>
-                        <Instruction key={idx} icon={icon} />
-                    )}
-                </Panel> */}
-            </Col>
+            <Row>
+                <Col md={8} xsOffset={2}>
+                    <Panel header="Instruções">
+                        {this.getInstructions().map( (icon, idx) =>
+                            <Button key={idx} bsStyle="primary" onClick={ () => this.props.addInstruction(icon)}>
+                                <Glyphicon glyph={icon} />
+                            </Button>
+                        )}
+                    </Panel>
+                    {/* <Panel header="Instruções">
+                        {this.getInstructions().map( (icon, idx) =>
+                            <Instruction key={idx} icon={icon} />
+                        )}
+                    </Panel> */}
+                </Col>
+            </Row>
         );
     }
 }

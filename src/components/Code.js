@@ -20,7 +20,6 @@ class Code extends Component {
         this.state = { repeatProg: 1,
                        showWinModal: false };
         this.runCode = this.runCode.bind(this);
-        this.renderModal = this.renderModal.bind(this);
     }
 
     getMainInstructions() {
@@ -121,19 +120,13 @@ class Code extends Component {
                     return;
                 }
             } else {
-                this.renderModal(true);
-                console.log("You own");
+                this.setState({ showWinModal: true });
                 return;
             }
         } else {
             console.log("you lost");
             return;
         }
-    }
-
-    renderModal(boolean) {
-        this.props.nextNivel();
-        this.setState({ showWinModal: boolean });
     }
 
     renderSelect() {
@@ -149,6 +142,11 @@ class Code extends Component {
 
     onInputChange(repeatProg) {
         this.setState({ repeatProg });
+    }
+
+    continue() {
+        this.setState({ showWinModal: false });
+        this.props.nextNivel();
     }
 
     render() {
@@ -183,7 +181,7 @@ class Code extends Component {
                             Parabéns você venceu!!!
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button onClick={() => this.renderModal(false)}>Continuar</Button>
+                            <Button onClick={() => this.continue()}>Continuar</Button>
                         </Modal.Footer>
                 </Modal>
             </Col>

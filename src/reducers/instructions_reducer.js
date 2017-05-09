@@ -18,9 +18,9 @@ export default function(state = initialState, action) {
     switch (action.type) {
         case ADD_INSTRUCTION:
             if (state.get('selectedBox') === 'main') {
-                return state = state.update('mainInstructions', list => list.push(action.instruction));
+                return state.update('mainInstructions', list => list.push(action.instruction));
             } else if (state.get('selectedBox') === 'prog') {
-                return state = state.update('progInstructions', list => list.push(action.instruction));
+                return state.update('progInstructions', list => list.push(action.instruction));
             }
             break;
         case REMOVE_INSTRUCTION:
@@ -34,7 +34,7 @@ export default function(state = initialState, action) {
             return state.set('selectedBox', action.boxName);
 
         case RESET_APP:
-            return state = initialState;
+            return initialState;
 
         default:
              return state;
