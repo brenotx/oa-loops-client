@@ -3,12 +3,13 @@ import { List, Map } from 'immutable';
 import { ADD_INSTRUCTION,
          REMOVE_INSTRUCTION,
          SET_SELECTEDBOX,
-         RESET_APP } from '../actions/index'
+         RESET_APP,
+         SET_REPEAT } from '../actions/index';
 
 // TODO: Use fromJS
 const initialState = Map({
     selectedBox: 'main',
-    // instructions: List([ 'arrow-right', 'repeat', 'arrow-up', 'arrow-down', 'arrow-left' ]),
+    repeatProg: 1,
     mainInstructions: List(),
     progInstructions: List()
 });
@@ -23,6 +24,7 @@ export default function(state = initialState, action) {
                 return state.update('progInstructions', list => list.push(action.instruction));
             }
             break;
+
         case REMOVE_INSTRUCTION:
             if (state.get('selectedBox') === 'main') {
                 return state.set('mainInstructions', state.get('mainInstructions').delete(action.idx));
@@ -30,8 +32,12 @@ export default function(state = initialState, action) {
                 return state.set('progInstructions', state.get('progInstructions').delete(action.idx));
             }
             break;
+
         case SET_SELECTEDBOX:
             return state.set('selectedBox', action.boxName);
+
+        case SET_REPEAT:
+            return state.set('repeatProg', action.value);
 
         case RESET_APP:
             return initialState;

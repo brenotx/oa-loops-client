@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Map, List } from 'immutable';
 import { Panel, Col, Glyphicon, ButtonToolbar, Button, Modal } from 'react-bootstrap';
 
-import { removeInstruction, setSelectedBox, resetApp, nextNivel } from '../actions/index';
+import { removeInstruction, setSelectedBox, resetApp, nextNivel, setRepeat } from '../actions/index';
 
 const validMoves = Map({
      "arrow-right": 1,
@@ -18,8 +18,7 @@ class Code extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { repeatProg: 1,
-                       showWinModal: false };
+        this.state = { showWinModal: false };
         this.runCode = this.runCode.bind(this);
     }
 
@@ -45,7 +44,7 @@ class Code extends Component {
     // TODO: Write a pure function
     runCode() {
         const path = this.props.gameNivel.get('path');
-        const repeatProg = this.state.repeatProg;
+        const repeatProg = this.props.instructionReducer.get('repeatProg');
 
         let progMoves = this.props.instructionReducer.get('progInstructions');
         let moves = this.props.instructionReducer.get('mainInstructions');
@@ -135,14 +134,10 @@ class Code extends Component {
             // TODO: Use Reat-boostrap, Add Prog1 label
             <label className="control-label">Repetir:
             <input className="form-control" type="number"
-                value={this.state.repeatProg} min="1" max="10"
-                onChange={event => this.onInputChange(event.target.value)}/>
+                value={this.props.instructionReducer.get('repeatProg')} min="1" max="10"
+                onChange={event => this.props.setRepeat(event.target.value)} />
             </label>
         );
-    }
-
-    onInputChange(repeatProg) {
-        this.setState({ repeatProg });
     }
 
     // TODO: Maybe you can do some refactoring in here
@@ -199,7 +194,12 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ removeInstruction, setSelectedBox, resetApp, nextNivel }, dispatch);
+    return bindActionCreators({ 
+        removeInstruction,
+        setSelectedBox,
+        resetApp,
+        nextNivel,
+        setRepeat }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Code);
