@@ -2,14 +2,14 @@ import { List, Map } from 'immutable';
 
 import { ADD_INSTRUCTION,
          REMOVE_INSTRUCTION,
-         SET_SELECTEDBOX,
+         SET_ACTIVE_BOX,
          RESET_APP,
-         SET_REPEAT } from '../actions/index';
+         SET_PROG_REPEAT } from '../actions/index';
 
 // TODO: Use fromJS
 const initialState = Map({
-    selectedBox: 'main',
-    repeatProg: 1,
+    activeBox: 'main',
+    progRepeat: 1,
     mainInstructions: List(),
     progInstructions: List()
 });
@@ -18,26 +18,26 @@ const initialState = Map({
 export default function(state = initialState, action) {
     switch (action.type) {
         case ADD_INSTRUCTION:
-            if (state.get('selectedBox') === 'main') {
+            if (state.get('activeBox') === 'main') {
                 return state.update('mainInstructions', list => list.push(action.instruction));
-            } else if (state.get('selectedBox') === 'prog') {
+            } else if (state.get('activeBox') === 'prog') {
                 return state.update('progInstructions', list => list.push(action.instruction));
             }
             break;
 
         case REMOVE_INSTRUCTION:
-            if (state.get('selectedBox') === 'main') {
+            if (state.get('activeBox') === 'main') {
                 return state.set('mainInstructions', state.get('mainInstructions').delete(action.idx));
-            } else if (state.get('selectedBox') === 'prog') {
+            } else if (state.get('activeBox') === 'prog') {
                 return state.set('progInstructions', state.get('progInstructions').delete(action.idx));
             }
             break;
 
-        case SET_SELECTEDBOX:
-            return state.set('selectedBox', action.boxName);
+        case SET_ACTIVE_BOX:
+            return state.set('activeBox', action.boxName);
 
-        case SET_REPEAT:
-            return state.set('repeatProg', action.value);
+        case SET_PROG_REPEAT:
+            return state.set('progRepeat', action.value);
 
         case RESET_APP:
             return initialState;

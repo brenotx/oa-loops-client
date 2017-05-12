@@ -7,7 +7,7 @@ import Instructions from './Instructions';
 import Code from './Code';
 
 
-class Game extends Component {
+export class Game extends Component {
 
     // TODO: Maybe a reducer can handle it better
     getNivelPath(nivelReducer) {
@@ -16,11 +16,15 @@ class Game extends Component {
         });
     }
 
+    getCurrentNivelId() {
+        return this.props.nivelReducer.get('currentNivelId') + 1 || "";
+    }
+
     render() {
         return (
             <Grid>
                 <Row>
-                    <PageHeader>OA <small>loops - Nível {this.props.nivelReducer.get('currentNivelId') + 1}</small></PageHeader>
+                    <PageHeader>OA <small>loops - Nível {this.getCurrentNivelId()}</small></PageHeader>
                     <Col md={6}>
                         <Board rows={5} columns={5} gameNivel={this.getNivelPath(this.props.nivelReducer)} />
                         <Instructions gameNivel={this.getNivelPath(this.props.nivelReducer)} />
@@ -36,7 +40,7 @@ class Game extends Component {
 
 function mapStateToProps(state) {
     return {
-        nivelReducer: state.nivelReducer
+        nivelReducer: state.get('nivelReducer')
     }
 }
 

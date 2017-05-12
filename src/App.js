@@ -21,8 +21,7 @@ class App extends Component {
         return (
             <div>
                 <Game key={this.state.gameId}
-                      createNewGame={this.createNewGame.bind(this)}
-                      rows={5} columns={5} activeCellsCount={6} />
+                      createNewGame={this.createNewGame.bind(this)} />
             </div>
         );
     }

@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Map, List } from 'immutable';
+import { createStructuredSelector } from 'reselect';
 import { Panel, Col, Glyphicon, ButtonToolbar, Button, Modal } from 'react-bootstrap';
 
-import { removeInstruction, setSelectedBox, resetApp, nextNivel, setRepeat } from '../actions/index';
+import { removeInstruction, setActiveBox, resetApp, nextNivel, setProgRepeat } from '../actions/index';
+import { makeSelectMainInstructions, makeSelectProgInstructions, makeSelectActiveBox, makeSelectProgRepeat } from '../containers/Code/selectors';
 
 const validMoves = Map({
      "arrow-right": 1,
@@ -22,19 +24,12 @@ class Code extends Component {
         this.runCode = this.runCode.bind(this);
     }
 
-    getMainInstructions() {
-        return this.props.instructionReducer.get('mainInstructions') || [];
-    }
-
-    getProgInstructions() {
-        return this.props.instructionReducer.get('progInstructions') || [];
-    }
-
     /**
-    * Whenever the selectedBox changes this method is called.
+    * Whenever the activeBox changes this method is called.
     */
+    // TODO: Write a pure function
     isActive(boxName) {
-        if (boxName === this.props.instructionReducer.get('selectedBox')) {
+        if (boxName === this.props.activeBox) {
             return 'jumbotron active-box';
         } else {
             return 'jumbotron';
@@ -42,15 +37,18 @@ class Code extends Component {
     }
 
     // TODO: Write a pure function
-    runCode() {
+    runCode(codeProps) {
+        // { activeBox }
+        
+        // TODO: Remove it form here!
         const path = this.props.gameNivel.get('path');
-        const repeatProg = this.props.instructionReducer.get('repeatProg');
+        // const progRepeat = progRepeat;
 
-        let progMoves = this.props.instructionReducer.get('progInstructions');
-        let moves = this.props.instructionReducer.get('mainInstructions');
+        // let progMoves = this.props.progInstructions;
+        // let moves = this.props.mainInstructions;
 
-        progMoves = this.repeatProgMoves(repeatProg, progMoves);
-        moves = this.applyLoopInstructions(moves, progMoves);
+        const progMoves = this.progRepeatMoves(codeProps.progRepeat, codeProps.progInstructions);
+        const moves = this.applyLoopInstructions(codeProps.mainInstructions, progMoves);
 
         this.checkCode(path, moves);
     }
@@ -59,14 +57,14 @@ class Code extends Component {
     /**
     * Repeat the list elements for the given multiplier.
     * 
-    * @param  {Number} repeatProg - The number of repeats.
+    * @param  {Number} progRepeat - The number of repeats.
     * @param  {Immutable.List} progMoves - List with instructions.
     * @return {Immutable.List} List with multiplied instructions.
     */
-    repeatProgMoves(repeatProg, progMoves) {
-        if (repeatProg > 1 && progMoves.size) {
+    progRepeatMoves(progRepeat, progMoves) {
+        if (progRepeat > 1 && progMoves.size) {
             let progMovesRepeated = List();
-            for (let i = 0; i < repeatProg; i++) {
+            for (let i = 0; i < progRepeat; i++) {
                 progMovesRepeated = progMovesRepeated.concat(progMoves);
             }
             return progMovesRepeated;
@@ -134,8 +132,8 @@ class Code extends Component {
             // TODO: Use Reat-boostrap, Add Prog1 label
             <label className="control-label">Repetir:
             <input className="form-control" type="number"
-                value={this.props.instructionReducer.get('repeatProg')} min="1" max="10"
-                onChange={event => this.props.setRepeat(event.target.value)} />
+                value={this.props.progRepeat} min="1" max="10"
+                onChange={event => this.props.setProgRepeat(event.target.value)} />
             </label>
         );
     }
@@ -148,12 +146,19 @@ class Code extends Component {
     }
 
     render() {
+        const { mainInstructions, progInstructions, activeBox, progRepeat } = this.props;
+        const codeProps = {
+            mainInstructions,
+            progInstructions,
+            progRepeat
+        };
+
         return (
             <Col>
                 <Panel header="Código">
                     <h5>Main:</h5>
-                    <div className={this.isActive('main')} onClick={() => this.props.setSelectedBox('main')}>
-                        {this.getMainInstructions().map( (icon, idx) =>
+                    <div className={this.isActive('main')} onClick={() => this.props.setActiveBox('main')}>
+                        {mainInstructions.map( (icon, idx) =>
                             <Button key={idx} bsStyle="primary" onClick={ () => this.props.removeInstruction(idx)}>
                                 <Glyphicon glyph={icon} />
                             </Button>
@@ -161,15 +166,15 @@ class Code extends Component {
                     </div>
                     {/* <h5>Prog:</h5> */}
                     {this.renderSelect()}
-                    <div className={this.isActive('prog')} onClick={() => this.props.setSelectedBox('prog')}>
-                        {this.getProgInstructions().map( (icon, idx) =>
+                    <div className={this.isActive('prog')} onClick={() => this.props.setActiveBox('prog')}>
+                        {progInstructions.map( (icon, idx) =>
                             <Button key={idx} bsStyle="primary" onClick={ () => this.props.removeInstruction(idx)}>
                                 <Glyphicon glyph={icon} />
                             </Button>
                         )}
                     </div>
                     <ButtonToolbar>
-                        <Button className="pull-right" bsStyle="primary" onClick={() => this.runCode()}>Executar</Button>
+                        <Button className="pull-right" bsStyle="primary" onClick={() => this.runCode(codeProps)}>Executar</Button>
                         <Button className="pull-right" bsStyle="primary" onClick={() => this.props.resetApp()}>Resetar</Button>
                     </ButtonToolbar>
                 </Panel>
@@ -187,19 +192,21 @@ class Code extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        instructionReducer: state.instructionReducer
-    };
-}
+
+const mapStateToProps = createStructuredSelector({
+    mainInstructions: makeSelectMainInstructions(),
+    progInstructions: makeSelectProgInstructions(),
+    activeBox: makeSelectActiveBox(),
+    progRepeat: makeSelectProgRepeat()
+});
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ 
         removeInstruction,
-        setSelectedBox,
+        setActiveBox,
         resetApp,
         nextNivel,
-        setRepeat }, dispatch);
+        setProgRepeat }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Code);

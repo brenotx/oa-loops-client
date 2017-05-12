@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import { fromJS } from 'immutable';
 import { shallow, mount, render } from 'enzyme';
 import { stub } from 'sinon';
+
 import App from './App';
-import Game from './components/Game';
+import { Game } from './components/Game';
 import Cell from './components/Cell';
 
 // it('renders without crashing', () => {
@@ -19,7 +20,7 @@ describe('<App />', () => {
     expect(wrapper.find(Game).length).toBe(1);
   });
 
-  it('should render three <Game /> components', () => {
+  it('should render aaa <Game /> components', () => {
     const wrapper = shallow(
       <Game rows={5} columns={5} />
     );
