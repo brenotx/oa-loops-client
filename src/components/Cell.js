@@ -5,7 +5,7 @@ import '../index.css';
 
 class Cell extends Component {
     active() {
-        return this.props.gameNivel.get('path').indexOf(this.props.id) >= 0;
+        return this.props.nivels.indexOf(this.props.id) >= 0;
     }
 
     render() {

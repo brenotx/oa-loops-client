@@ -6,17 +6,13 @@ import { Row, Col, Panel, Glyphicon, Button } from 'react-bootstrap';
 import { addInstruction } from '../actions/index';
 
 class Instructions extends Component {
-    getInstructions() {
-        // return this.props.instructionReducer.get('instructions') || []
-        return this.props.gameNivel.get('instructions') || [];
-    }
-
+    
     render() {
         return (
             <Row>
                 <Col md={8} xsOffset={2}>
                     <Panel header="Instruções">
-                        {this.getInstructions().map( (icon, idx) =>
+                        {this.props.gameNivelInstructions.map( (icon, idx) =>
                             <Button key={idx} bsStyle="primary" onClick={ () => this.props.addInstruction(icon)}>
                                 <Glyphicon glyph={icon} />
                             </Button>

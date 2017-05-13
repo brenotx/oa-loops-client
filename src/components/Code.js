@@ -6,7 +6,12 @@ import { createStructuredSelector } from 'reselect';
 import { Panel, Col, Glyphicon, ButtonToolbar, Button, Modal } from 'react-bootstrap';
 
 import { removeInstruction, setActiveBox, resetApp, nextNivel, setProgRepeat } from '../actions/index';
-import { makeSelectMainInstructions, makeSelectProgInstructions, makeSelectActiveBox, makeSelectProgRepeat } from '../containers/Code/selectors';
+import { 
+    makeSelectMainInstructions,
+    makeSelectProgInstructions,
+    makeSelectActiveBox,
+    makeSelectProgRepeat
+} from '../containers/Code/selectors';
 
 const validMoves = Map({
      "arrow-right": 1,
@@ -38,14 +43,9 @@ class Code extends Component {
 
     // TODO: Write a pure function
     runCode(codeProps) {
-        // { activeBox }
         
         // TODO: Remove it form here!
-        const path = this.props.gameNivel.get('path');
-        // const progRepeat = progRepeat;
-
-        // let progMoves = this.props.progInstructions;
-        // let moves = this.props.mainInstructions;
+        const path = this.props.gameNivelPath;
 
         const progMoves = this.progRepeatMoves(codeProps.progRepeat, codeProps.progInstructions);
         const moves = this.applyLoopInstructions(codeProps.mainInstructions, progMoves);
@@ -146,7 +146,7 @@ class Code extends Component {
     }
 
     render() {
-        const { mainInstructions, progInstructions, activeBox, progRepeat } = this.props;
+        const { mainInstructions, progInstructions, progRepeat } = this.props;
         const codeProps = {
             mainInstructions,
             progInstructions,
