@@ -3,16 +3,16 @@ import { connect } from 'react-redux';
 import { Grid, Row, Col, PageHeader } from 'react-bootstrap';
 import { createStructuredSelector } from 'reselect';
 
-import Board from './Board';
-import Instructions from './Instructions';
-import Code from './Code';
+import Board from '../../components/Board';
+import Instructions from '../../components/Instructions';
+import Code from '../../components/Code';
 import {
     selectGame,
     makeSelectGameNivel,
     makeSelectGameNivelId,
     makeSelectGameNivelPath,
     makeSelectGameNivelInstructions
-} from '../containers/Game/selectors';
+} from './selectors';
 
 
 export class Game extends Component {
