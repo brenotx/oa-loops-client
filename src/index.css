@@ -12,6 +12,9 @@ body {
 .active {
     background-color: #058BDA;
 }
+.move {
+    background-color: #00CC00;
+}
 .guess-true {
     background-color: #00CC00;
 }

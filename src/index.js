@@ -2,9 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware} from 'redux';
 import { Provider } from 'react-redux';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import logger from 'redux-logger'
 
 import App from './App';
+import Login from './containers/Login';
+import NivelPage from './containers/NivelPage';
 import reducer from './reducers';
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -18,11 +21,16 @@ const store = createStore(
 );
 
 ReactDOM.render(
-    // <Provider />
-    // Makes the Redux store available to the connect() calls in the
-    // component hierarchy below
     <Provider store={store}>
-        <App />
+        <BrowserRouter>
+            <div>
+                <Switch>
+                    <Route path="/game" component={App} />
+                    <Route path="/login" component={Login} />
+                    <Route path="/nivel" component={NivelPage} />
+                </Switch>
+            </div>
+        </BrowserRouter>
     </Provider>,
     document.getElementById('root')
 );
