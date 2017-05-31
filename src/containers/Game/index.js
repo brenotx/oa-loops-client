@@ -5,7 +5,8 @@ import { createStructuredSelector } from 'reselect';
 
 import Board from '../../components/Board';
 import Instructions from '../../components/Instructions';
-import Code from '../../components/Code';
+import Code from '../Code/index';
+import { makeSelectUserPath } from '../Code/selectors';
 import {
     selectGame,
     makeSelectGameNivel,
@@ -23,7 +24,7 @@ export class Game extends Component {
                 <Row>
                     <PageHeader>OA <small>loops - Nível {this.props.gameNivelId}</small></PageHeader>
                     <Col md={6}>
-                        <Board rows={5} columns={5} nivels={this.props.gameNivelPath} />
+                        <Board rows={5} columns={5} nivels={this.props.gameNivelPath} userPath={this.props.codeUserPath} />
                         <Instructions gameNivelInstructions={this.props.gameNivelInstructions} />
                     </Col>
                     <Col md={6}>
@@ -40,7 +41,8 @@ const mapStateToProps = createStructuredSelector({
     gameNivel: makeSelectGameNivel(),
     gameNivelId: makeSelectGameNivelId(),
     gameNivelPath: makeSelectGameNivelPath(),
-    gameNivelInstructions: makeSelectGameNivelInstructions()
+    gameNivelInstructions: makeSelectGameNivelInstructions(),
+    codeUserPath: makeSelectUserPath()
 });
 
 export default connect(mapStateToProps)(Game);

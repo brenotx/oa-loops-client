@@ -5,7 +5,9 @@ import {
     makeSelectMainInstructions,
     makeSelectProgInstructions,
     makeSelectActiveBox,
-    makeSelectProgRepeat
+    makeSelectProgRepeat,
+    selectCode,
+    makeSelectUserPath
 } from '../selectors';
 
 describe('selectInstructions', () => {
@@ -16,6 +18,16 @@ describe('selectInstructions', () => {
     });
     expect(selectInstructions(mockedState)).toEqual(instructionsState);
   });
+});
+
+describe('selectCode', () => {
+    it('should select the user code state', () => {
+        const codeState = fromJS({});
+        const mockedState = fromJS({
+            code: codeState
+        });
+        expect(selectCode(mockedState)).toEqual(codeState);
+    });
 });
 
 describe('makeSelectMainInstructions', () => {
@@ -67,5 +79,18 @@ describe('makeSelectProgRepeat', () => {
             }
         });
         expect(progRepeatSelector(mockedState)).toEqual(progRepeat);
+    });
+});
+
+describe('makeSelectUserPath', () => {
+    const userPathSelector = makeSelectUserPath();
+    it('should select the user path', () => {
+        const userPathState = fromJS([]);
+        const mockedState = fromJS({
+            code: {
+                userPath: []
+            }
+        })
+        expect(userPathSelector(mockedState)).toEqual(userPathState);
     });
 });

@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 
 const selectInstructions = state => state.get('instructionReducer');
+const selectCode = state => state.get('code');
 
 const makeSelectMainInstructions = () => createSelector(
     selectInstructions,
@@ -22,11 +23,17 @@ const makeSelectProgRepeat = () => createSelector(
     (instructionsState) => instructionsState.get('progRepeat')
 );
 
+const makeSelectUserPath = () => createSelector(
+    selectCode,
+    (codeState) => codeState.get('userPath')
+);
 
 export {
     selectInstructions,
     makeSelectMainInstructions,
     makeSelectProgInstructions,
     makeSelectActiveBox,
-    makeSelectProgRepeat
+    makeSelectProgRepeat,
+    selectCode,
+    makeSelectUserPath
 };

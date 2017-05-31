@@ -25,7 +25,8 @@ class Board extends Component {
                     {this.matrix.map((row, idx) => (
                         <Row key={idx}>
                             {row.map(cellId => <Cell key={cellId} id={cellId}
-                                nivels={this.props.nivels} />
+                                nivels={this.props.nivels}
+                                userPath={this.props.userPath} />
                             )}
                         </Row>
                     ))}

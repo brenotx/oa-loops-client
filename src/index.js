@@ -6,7 +6,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import logger from 'redux-logger'
 
 import App from './App';
-import Login from './containers/Login';
+import SignIn from './containers/SignIn';
+import SignUpPage from './containers/SignUpPage';
 import NivelPage from './containers/NivelPage';
 import reducer from './reducers';
 
@@ -26,7 +27,8 @@ ReactDOM.render(
             <div>
                 <Switch>
                     <Route path="/game" component={App} />
-                    <Route path="/login" component={Login} />
+                    <Route path="/signin" component={SignIn} />
+                    <Route path="/signup" component={SignUpPage} />
                     <Route path="/nivel" component={NivelPage} />
                 </Switch>
             </div>
