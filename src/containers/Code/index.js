@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import { Map, List, fromJS } from 'immutable';
 import { createStructuredSelector } from 'reselect';
 import { Panel, Col, Glyphicon, ButtonToolbar, Button, Modal } from 'react-bootstrap';
+import * as firebase from 'firebase';
 
+import { setUserPath, resetUserPath } from './actions';
+import { nivelRef, nivelStatsRef } from '../../firebase';
 import {
     removeInstruction,
     setActiveBox,
@@ -12,7 +15,6 @@ import {
     nextNivel,
     setProgRepeat
 } from '../../actions/index';
-import { setUserPath, resetUserPath } from './actions';
 import { 
     makeSelectMainInstructions,
     makeSelectProgInstructions,
@@ -32,8 +34,19 @@ class Code extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { showWinModal: false };
+        this.state = {
+            showWinModal: false,
+            nivelStats: Map({
+                tries: 0,
+                correctAnwsers: 0,
+                wrongAnwsers: 0
+            })
+        };
         this.runCode = this.runCode.bind(this);
+    }
+
+    componentDidMount() {
+        
     }
 
     /**
@@ -50,7 +63,14 @@ class Code extends Component {
 
     // TODO: Write a pure function! What a shit code!
     runCode(codeProps) {
-        
+
+
+        // this.setState(({nivelStats}) => ({
+        //     nivelStats: nivelStats.update('tries', v => v + 1)
+        // }));
+
+        // console.log("haha " + this.state.nivelStats.get('tries'));
+
         // TODO: Remove it from here!
         const path = this.props.gameNivelPath;
 
@@ -60,17 +80,62 @@ class Code extends Component {
         const cellStartPosition = this.props.gameNivelPath.first();
         const cellMovesNumber = this.convertMovesToCellNumber(cellStartPosition, moves);
 
-        this.checkCode(path, moves)
-        // if (this.checkCode(path, moves)) {
-        //     let promises = [];
-        //     promises = this.animateExecution(cellMovesNumber);
-        //     const results = Promise.all(promises);
-        //     results.then((result) => {
-        //         this.setState({ showWinModal: true });
-        //     });
-        // } else {
-        //     console.log("You lost");
-        // }
+        let promises = [];
+        promises = this.checkCode2(path, cellMovesNumber);
+        const results = Promise.all(promises);
+        results.then((result) => {
+            this.setNivelStats(path.equals(cellMovesNumber));
+            // path.equals(cellMovesNumber) ? this.setState({ showWinModal: true }) : this.setNivelStats();
+        });
+    }
+
+    setNivelStats(codeResult) {
+        // console.log('DIDMOUNT')
+        // nivelStatsRef.on('value', snap => {
+        //     snap.forEach(nivelStats => {
+        //         let { tries, correctAnwsers, wrongAnwsers } = nivelStats.val();
+        //         this.setState({ nivelStats : { tries, correctAnwsers, wrongAnwsers }})
+        //     })
+        // });
+
+        // console.log(this.state.nivelStats);
+        // var nivelsStats = firebase.database().ref('nivelsStats');
+        if (codeResult) {
+            this.setState({ showWinModal: true })
+             
+            // nivelsStats.set([{
+            //     tries: this.state.nivelStats.tries += 1,
+            //     correctAnwsers: this.state.nivelStats.correctAnwsers += 1,
+            //     wrongAnwsers: this.state.nivelStats.wrongAnwsers,
+            //     // totalInstructions: 5
+            // }]);
+        } else {
+
+            var ref = firebase.database().ref('nivelsStats');
+            
+            ref.once('value', snap => {
+                const keys = Object.keys(snap.val());
+                let { correctAnwsers, wrongAnwsers } = snap.val()[keys[this.props.gameNivelId]];
+                // console.log(correctAnwsers, wrongAnwsers)
+                var ref2 = firebase.database().ref('nivelsStats/' + keys[this.props.gameNivelId]);
+                ref2.update({
+                    correctAnwsers: correctAnwsers += 1,
+                    wrongAnwsers: wrongAnwsers += 1
+                })
+            });
+
+
+
+            // Code used to create the data
+            // var ref = firebase.database().ref('nivelsStats');
+            // this new, empty ref only exists locally
+            // var newChildRef = ref.push();
+            // we can get its id using key()
+            //now it is appended at the end of data at the server
+            // newChildRef.set({correctAnwsers: 0, wrongAnwsers: 0});
+            
+            console.log('perdeu');
+        }
     }
 
     /**
@@ -109,7 +174,6 @@ class Code extends Component {
      */
     animateExecution(cellMovesNumber) {
         const self = this;
-        const len = cellMovesNumber.size;
         const promises = cellMovesNumber.map((elem, idx) => {
             const promise = (function(index) {
                 return new Promise(resolve => setTimeout(() => {
@@ -188,6 +252,25 @@ class Code extends Component {
             // console.log('Perdeu 2');
             // return true;
         // }
+    }
+
+    checkCode2(path, moves) {
+        const self = this;
+        let count = 0;
+        const promises = moves.map((item, idx) => {
+            if (item === path.get(idx) || !count) {
+                const promise = (function(index) {
+                return new Promise(resolve => setTimeout(() => {
+                        self.props.setUserPath(moves.get(idx));
+                        resolve();
+                    }, idx * 1000));
+                })(idx);
+                return promise;
+            } else {
+                count = 1;
+            }
+        });
+        return promises;
     }
 
     renderSelect() {

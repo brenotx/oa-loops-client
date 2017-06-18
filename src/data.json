@@ -1,0 +1,39 @@
+{
+"nivels" : {
+"-KlnmNHh1dSSMBM94uqP" : [ {
+"instructions" : [ "arrow-right" ],
+"path" : [ "20", "21", "22", "23", "24" ]
+}, {
+"instructions" : [ "arrow-right", "repeat", "arrow-up", "arrow-down", "arrow-left" ],
+"path" : [ "20", "21", "31", "32", "33", "34" ]
+}, {
+"instructions" : [ "arrow-right", "repeat", "arrow-up", "arrow-down", "arrow-left" ],
+"path" : [ "20", "21", "31", "32", "33", "23", "24" ]
+} ]
+},
+"nivelsStats" : [ {
+"correctAnwsers" : 4,
+"tries" : 25,
+"wrongAnwsers" : 7
+}, {
+"correctAnwsers" : 0,
+"tries" : 0,
+"wrongAnwsers" : 0
+}, {
+"correctAnwsers" : 0,
+"tries" : 0,
+"wrongAnwsers" : 0
+}, {
+"correctAnwsers" : 0,
+"tries" : 0,
+"wrongAnwsers" : 0
+}, {
+"correctAnwsers" : 0,
+"tries" : 0,
+"wrongAnwsers" : 0
+}, {
+"correctAnwsers" : 0,
+"tries" : 0,
+"wrongAnwsers" : 0
+} ]
+}

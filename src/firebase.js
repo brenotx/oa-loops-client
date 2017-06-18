@@ -1,12 +1,14 @@
 import * as firebase from 'firebase';
 
 const config = {
-    apiKey: "AIzaSyAfGDmuYtZHTIT8yJRn0qeKDcSP2UW-ULk",
-    authDomain: "oa-loops.firebaseapp.com",
-    databaseURL: "https://oa-loops.firebaseio.com",
-    projectId: "oa-loops",
-    storageBucket: "oa-loops.appspot.com",
-    messagingSenderId: "560266492247"
+    apiKey: "AIzaSyB0yA3XjsMeLq5sNGJKvJFbIZ0z3IWeTyY",
+    authDomain: "oa-loops-e3067.firebaseapp.com",
+    databaseURL: "https://oa-loops-e3067.firebaseio.com",
+    projectId: "oa-loops-e3067",
+    storageBucket: "oa-loops-e3067.appspot.com",
+    messagingSenderId: "894635873660"
 };
 
 export const firebaseApp = firebase.initializeApp(config);
+// export const nivelRef = firebase.database().ref('nivels');
+export const nivelStatsRef = firebase.database().ref('nivelsStats');

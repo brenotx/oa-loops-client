@@ -19,7 +19,7 @@ class Cell extends Component {
             className += ' active';
         }
         if (this.move()) {
-            className = 'cell cell-icon move';
+            className = 'cell cell-icon good-move';
         }
         return (
             <div className={className}>
