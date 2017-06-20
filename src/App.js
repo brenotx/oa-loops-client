@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import Game from './containers/Game/index';
+import Header from './containers/Header/index';
 import { firebaseApp } from './firebase';
 
 
@@ -39,8 +40,9 @@ class App extends Component {
     render() {
         return (
             <div>
-                <Game key={this.state.gameId}
-                      createNewGame={this.createNewGame.bind(this)} />
+                <Header />
+                {this.props.children}
+                
             </div>
         );
     }

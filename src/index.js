@@ -4,34 +4,47 @@ import { createStore, applyMiddleware} from 'redux';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import logger from 'redux-logger'
+import reduxThunk from 'redux-thunk';
 
 import App from './App';
-import SignIn from './containers/SignIn';
+import Game from './containers/Game';
+import SignIn from './containers/auth/SignIn';
+import SignOut from './containers/auth/SignOut';
+import SignUp from './containers/auth/SignUp';
+
+// import SignIn from './containers/SignIn';
 import SignUpPage from './containers/SignUpPage';
 import NivelPage from './containers/NivelPage';
-import reducer from './reducers';
+import reducers from './reducers';
+import RequireAuth from './containers/auth/require_auth';
+import { AUTH_USER } from './containers/auth/constants';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
-
 import './index.css';
 
 const store = createStore(
-    reducer,
+    reducers,
+    applyMiddleware(reduxThunk)
     // applyMiddleware(logger)
 );
+
+const token = localStorage.getItem('token');
+
+if (token) {
+  store.dispatch({ type: AUTH_USER });
+}
 
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
-            <div>
-                <Switch>
-                    <Route path="/game" component={App} />
-                    <Route path="/signin" component={SignIn} />
-                    <Route path="/signup" component={SignUpPage} />
-                    <Route path="/nivel" component={NivelPage} />
-                </Switch>
-            </div>
+            <App>
+                <Route path="/signin" component={SignIn} />
+                <Route path="/signout" component={SignOut} />
+                <Route path="/signup" component={SignUp} />
+                <Route path="/game" component={RequireAuth(Game)} />
+                <Route path="/nivel" component={NivelPage} />
+            </App>
         </BrowserRouter>
     </Provider>,
     document.getElementById('root')

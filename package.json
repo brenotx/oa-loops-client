@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.16.2",
     "bootstrap": "^3.3.7",
     "firebase": "^4.0.0",
     "immutable": "^3.8.1",
@@ -13,7 +14,9 @@
     "react-redux": "^5.0.4",
     "react-router-dom": "^4.1.1",
     "redux": "^3.6.0",
+    "redux-form": "^6.8.0",
     "redux-immutable": "^4.0.0",
+    "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
     "styled-components": "^1.4.6"
   },
