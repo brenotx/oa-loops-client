@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 
 const selectInstructions = state => state.get('instructionReducer');
 const selectCode = state => state.get('code');
+const selectNivelStats = state => state.get('nivelStats');
 
 const makeSelectMainInstructions = () => createSelector(
     selectInstructions,
@@ -35,5 +36,6 @@ export {
     makeSelectActiveBox,
     makeSelectProgRepeat,
     selectCode,
-    makeSelectUserPath
+    makeSelectUserPath,
+    selectNivelStats
 };

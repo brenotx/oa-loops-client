@@ -6,7 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import { Panel, Col, Glyphicon, ButtonToolbar, Button, Modal } from 'react-bootstrap';
 import * as firebase from 'firebase';
 
-import { setUserPath, resetUserPath } from './actions';
+import { setUserPath, resetUserPath, fetchNivelStats } from './actions';
 import { nivelRef, nivelStatsRef } from '../../firebase';
 import {
     removeInstruction,
@@ -19,7 +19,8 @@ import {
     makeSelectMainInstructions,
     makeSelectProgInstructions,
     makeSelectActiveBox,
-    makeSelectProgRepeat
+    makeSelectProgRepeat,
+    selectNivelStats
 } from './selectors';
 
 const validMoves = Map({
@@ -46,7 +47,7 @@ class Code extends Component {
     }
 
     componentDidMount() {
-        
+        this.props.fetchNivelStats()
     }
 
     /**
@@ -303,6 +304,7 @@ class Code extends Component {
         return (
             <Col>
                 <Panel header="Código">
+                {console.log("aqui: " + this.props.nivelStats)}
                     <h5>Main:</h5>
                     <div className={this.isActive('main')} onClick={() => this.props.setActiveBox('main')}>
                         {mainInstructions.map( (icon, idx) =>
@@ -344,7 +346,8 @@ const mapStateToProps = createStructuredSelector({
     mainInstructions: makeSelectMainInstructions(),
     progInstructions: makeSelectProgInstructions(),
     activeBox: makeSelectActiveBox(),
-    progRepeat: makeSelectProgRepeat()
+    progRepeat: makeSelectProgRepeat(),
+    nivelStats: selectNivelStats
 });
 
 function mapDispatchToProps(dispatch) {
@@ -355,7 +358,8 @@ function mapDispatchToProps(dispatch) {
         nextNivel,
         setProgRepeat,
         setUserPath,
-        resetUserPath }, dispatch);
+        resetUserPath,
+        fetchNivelStats }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Code);
