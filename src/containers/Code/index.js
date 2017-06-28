@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Map, List, fromJS } from 'immutable';
+import { Map, List } from 'immutable';
 import { createStructuredSelector } from 'reselect';
 import { Panel, Col, Glyphicon, ButtonToolbar, Button, Modal } from 'react-bootstrap';
 import * as firebase from 'firebase';
 
 import { setUserPath, resetUserPath, fetchNivelStats } from './actions';
-import { nivelRef, nivelStatsRef } from '../../firebase';
 import {
     removeInstruction,
     setActiveBox,

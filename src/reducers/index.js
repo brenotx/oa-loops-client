@@ -1,4 +1,3 @@
-import { fromJS } from 'immutable';
 import { combineReducers } from 'redux-immutable';
 import { reducer as formReducer } from "redux-form";
 

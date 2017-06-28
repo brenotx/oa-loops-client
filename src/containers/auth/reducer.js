@@ -13,7 +13,7 @@ const initialState = fromJS({
     message: ''
 });
 
-export default function(state = fromJS({}), action) {
+export default function(state = initialState, action) {
     switch(action.type) {
         case AUTH_USER:
             return state.set('authenticated', true);
@@ -23,7 +23,7 @@ export default function(state = fromJS({}), action) {
             return state.set('error', action.payload);
         case FETCH_MESSAGE:
             return state.set('message', action.payload);
+        default:
+            return state;
     }
-
-    return state;
 }

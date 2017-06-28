@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware} from 'redux';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import logger from 'redux-logger'
+import { BrowserRouter, Route } from 'react-router-dom';
+// import logger from 'redux-logger'
 import reduxThunk from 'redux-thunk';
 
 import App from './App';
@@ -12,8 +12,6 @@ import SignIn from './containers/auth/SignIn';
 import SignOut from './containers/auth/SignOut';
 import SignUp from './containers/auth/SignUp';
 
-// import SignIn from './containers/SignIn';
-import SignUpPage from './containers/SignUpPage';
 import NivelPage from './containers/NivelPage';
 import reducers from './reducers';
 import RequireAuth from './containers/auth/require_auth';

@@ -14,8 +14,6 @@ import {
     makeSelectGameNivelPath,
     makeSelectGameNivelInstructions
 } from './selectors';
-import { firebaseApp, nivelRef } from '../../firebase';
-import * as firebase from 'firebase';
 
 
 export class Game extends Component {

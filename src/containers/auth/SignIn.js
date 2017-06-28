@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { Field, reduxForm } from "redux-form/immutable";
 import { connect } from "react-redux";
 
