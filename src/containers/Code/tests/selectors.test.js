@@ -7,7 +7,8 @@ import {
     makeSelectActiveBox,
     makeSelectProgRepeat,
     selectCode,
-    makeSelectUserPath
+    makeSelectUserPath,
+    makeSelectNivelStats
 } from '../selectors';
 
 describe('selectInstructions', () => {
@@ -90,7 +91,20 @@ describe('makeSelectUserPath', () => {
             code: {
                 userPath: []
             }
-        })
+        });
         expect(userPathSelector(mockedState)).toEqual(userPathState);
+    });
+});
+
+describe('makeSelectNivelStats', () => {
+    const nivelStatsSelector = makeSelectNivelStats();
+    it('should select the nivel stats', () => {
+        const nivelStatsState = fromJS([]);
+        const mockedState = fromJS({
+            code: {
+                nivelStats: []
+            }
+        });
+        expect(nivelStatsSelector(mockedState)).toEqual(nivelStatsState);
     });
 });

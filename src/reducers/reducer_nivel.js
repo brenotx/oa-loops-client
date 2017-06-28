@@ -8,7 +8,11 @@ const initialState = fromJS({
         {
             id: 0,
             path: [ "20", "21", "22", "23", "24" ],
-            instructions: [ 'arrow-right']
+            instructions: [ 'arrow-right'],
+            stats: {
+                correctAnwsers: 0,
+                wrongAnwsers: 0
+            }
         },
         {
             id: 1,

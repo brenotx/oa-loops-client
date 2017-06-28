@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware} from 'redux';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
-// import logger from 'redux-logger'
+import logger from 'redux-logger'
 import reduxThunk from 'redux-thunk';
 
 import App from './App';
@@ -23,8 +23,8 @@ import './index.css';
 
 const store = createStore(
     reducers,
-    applyMiddleware(reduxThunk)
-    // applyMiddleware(logger)
+    applyMiddleware(reduxThunk),
+    applyMiddleware(logger)
 );
 
 const token = localStorage.getItem('token');

@@ -19,7 +19,7 @@ function codeReducer(state = initialState, action) {
         case RESET_USER_PATH:
             return state.set('userPath', fromJS([]));
         case FETCH_NIVEL_STATS:
-            return state.set('nivelStats', action.payload)
+            return state.set('nivelStats', action.payload);
         default:
             return state;
     }

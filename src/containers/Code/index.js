@@ -19,7 +19,7 @@ import {
     makeSelectProgInstructions,
     makeSelectActiveBox,
     makeSelectProgRepeat,
-    selectNivelStats
+    makeSelectNivelStats
 } from './selectors';
 
 const validMoves = Map({
@@ -64,13 +64,6 @@ class Code extends Component {
     // TODO: Write a pure function! What a shit code!
     runCode(codeProps) {
 
-
-        // this.setState(({nivelStats}) => ({
-        //     nivelStats: nivelStats.update('tries', v => v + 1)
-        // }));
-
-        // console.log("haha " + this.state.nivelStats.get('tries'));
-
         // TODO: Remove it from here!
         const path = this.props.gameNivelPath;
 
@@ -90,50 +83,26 @@ class Code extends Component {
     }
 
     setNivelStats(codeResult) {
-        // console.log('DIDMOUNT')
-        // nivelStatsRef.on('value', snap => {
-        //     snap.forEach(nivelStats => {
-        //         let { tries, correctAnwsers, wrongAnwsers } = nivelStats.val();
-        //         this.setState({ nivelStats : { tries, correctAnwsers, wrongAnwsers }})
-        //     })
-        // });
-
-        // console.log(this.state.nivelStats);
-        // var nivelsStats = firebase.database().ref('nivelsStats');
+        
         if (codeResult) {
-            this.setState({ showWinModal: true })
-             
-            // nivelsStats.set([{
-            //     tries: this.state.nivelStats.tries += 1,
-            //     correctAnwsers: this.state.nivelStats.correctAnwsers += 1,
-            //     wrongAnwsers: this.state.nivelStats.wrongAnwsers,
-            //     // totalInstructions: 5
-            // }]);
+            this.setState({ showWinModal: true });
+            this.props.nivelStats[this.props.gameNivelId].correctAnwsers += 1;
         } else {
 
-            var ref = firebase.database().ref('nivelsStats');
-            
-            ref.once('value', snap => {
-                const keys = Object.keys(snap.val());
-                let { correctAnwsers, wrongAnwsers } = snap.val()[keys[this.props.gameNivelId]];
-                // console.log(correctAnwsers, wrongAnwsers)
-                var ref2 = firebase.database().ref('nivelsStats/' + keys[this.props.gameNivelId]);
-                ref2.update({
-                    correctAnwsers: correctAnwsers += 1,
-                    wrongAnwsers: wrongAnwsers += 1
-                })
-            });
+            this.props.nivelStats[this.props.gameNivelId].wrongAnwsers += 1;
 
-
-
-            // Code used to create the data
             // var ref = firebase.database().ref('nivelsStats');
-            // this new, empty ref only exists locally
-            // var newChildRef = ref.push();
-            // we can get its id using key()
-            //now it is appended at the end of data at the server
-            // newChildRef.set({correctAnwsers: 0, wrongAnwsers: 0});
             
+            // ref.once('value', snap => {
+            //     const keys = Object.keys(snap.val());
+            //     let { correctAnwsers, wrongAnwsers } = snap.val()[keys[this.props.gameNivelId]];
+            //     var ref2 = firebase.database().ref('nivelsStats/' + keys[this.props.gameNivelId]);
+            //     ref2.update({
+            //         correctAnwsers: correctAnwsers += 1,
+            //         wrongAnwsers: wrongAnwsers += 1
+            //     })
+            // });
+
             console.log('perdeu');
         }
     }
@@ -346,7 +315,7 @@ const mapStateToProps = createStructuredSelector({
     progInstructions: makeSelectProgInstructions(),
     activeBox: makeSelectActiveBox(),
     progRepeat: makeSelectProgRepeat(),
-    nivelStats: selectNivelStats
+    nivelStats: makeSelectNivelStats()
 });
 
 function mapDispatchToProps(dispatch) {
