@@ -6,7 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import { Panel, Col, Glyphicon, ButtonToolbar, Button, Modal } from 'react-bootstrap';
 import * as firebase from 'firebase';
 
-import { setUserPath, resetUserPath, fetchNivelStats } from './actions';
+import { setUserPath, resetUserPath, fetchNivelStats, updateNivelStats } from './actions';
 import {
     removeInstruction,
     setActiveBox,
@@ -46,7 +46,7 @@ class Code extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchNivelStats()
+        this.props.fetchNivelStats();
     }
 
     /**
@@ -83,26 +83,13 @@ class Code extends Component {
     }
 
     setNivelStats(codeResult) {
-        
         if (codeResult) {
             this.setState({ showWinModal: true });
             this.props.nivelStats[this.props.gameNivelId].correctAnwsers += 1;
+            const { nivelId, correctAnwsers, wrongAnwsers } = this.props.nivelStats[this.props.gameNivelId];
+            this.props.updateNivelStats({ nivelId, correctAnwsers, wrongAnwsers });
         } else {
-
             this.props.nivelStats[this.props.gameNivelId].wrongAnwsers += 1;
-
-            // var ref = firebase.database().ref('nivelsStats');
-            
-            // ref.once('value', snap => {
-            //     const keys = Object.keys(snap.val());
-            //     let { correctAnwsers, wrongAnwsers } = snap.val()[keys[this.props.gameNivelId]];
-            //     var ref2 = firebase.database().ref('nivelsStats/' + keys[this.props.gameNivelId]);
-            //     ref2.update({
-            //         correctAnwsers: correctAnwsers += 1,
-            //         wrongAnwsers: wrongAnwsers += 1
-            //     })
-            // });
-
             console.log('perdeu');
         }
     }
@@ -327,7 +314,8 @@ function mapDispatchToProps(dispatch) {
         setProgRepeat,
         setUserPath,
         resetUserPath,
-        fetchNivelStats }, dispatch);
+        fetchNivelStats,
+        updateNivelStats }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Code);
