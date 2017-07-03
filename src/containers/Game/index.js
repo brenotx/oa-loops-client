@@ -16,7 +16,7 @@ import {
 } from './selectors';
 
 
-export class Game extends Component {
+class Game extends Component {
 
     componentDidMount() {
     //     const { id } = this.props.match.params;

@@ -5,7 +5,7 @@ import { shallow, mount, render } from 'enzyme';
 import { stub } from 'sinon';
 
 import App from './App';
-import { Game } from './components/Game';
+import Header from './containers/Header';
 import Cell from './components/Cell';
 
 // it('renders without crashing', () => {
@@ -15,10 +15,17 @@ import Cell from './components/Cell';
 
 describe('<App />', () => {
 
-  it('should render three <Game /> components', () => {
-    const wrapper = shallow(<App />);
+    it('should render the header', () => {
+        const renderedComponent = shallow(
+            <App />
+        );
+        expect(renderedComponent.find(Header).length).toBe(1);
+    }); 
+
+  // it('should render three <Game /> components', () => {
+    // const wrapper = shallow(<App />);
     // expect(wrapper.find(Game).length).toBe(1);
-  });
+  // });
 
   // it('should render aaa <Game /> components', () => {
   //   const wrapper = shallow(
