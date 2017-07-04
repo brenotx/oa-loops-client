@@ -5,13 +5,13 @@ const selectGame = state => state.get('game');
 const makeSelectGameNivelId = () => createSelector(
     selectGame,
     (gameState) => gameState.get('gameNivelId')
-)
+);
 
 const makeSelectGameNivel = () =>  createSelector(
     selectGame,
     makeSelectGameNivelId(),
     (gameState, gameNivelId) => gameState.get('nivels').find( obj => {
-        return obj.get('id') === gameNivelId
+        return obj.get('id') === gameNivelId;
     })
 );
 
@@ -31,4 +31,4 @@ export {
     makeSelectGameNivelId,
     makeSelectGameNivelPath,
     makeSelectGameNivelInstructions
-}
+};

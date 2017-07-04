@@ -14,19 +14,21 @@ const initialState = fromJS({
                 wrongAnwsers: 0
             }
         },
-        {
-            id: 1,
-            path: [ "20", "21", "31", "32", "33", "34" ],
-            instructions: [ 'arrow-right', 'repeat', 'arrow-up', 'arrow-down', 'arrow-left' ]
-        },
-        {
-            id: 2,
-            path: [ "20", "21", "31", "32", "33", "23", "24" ],
-            instructions: [ 'arrow-right', 'repeat', 'arrow-up', 'arrow-down', 'arrow-left' ]
-        }
+        // {
+        //     id: 1,
+        //     path: [ "20", "21", "31", "32", "33", "34" ],
+        //     instructions: [ 'arrow-right', 'repeat', 'arrow-up', 'arrow-down', 'arrow-left' ]
+        // },
+        // {
+        //     id: 2,
+        //     path: [ "20", "21", "31", "32", "33", "23", "24" ],
+        //     instructions: [ 'arrow-right', 'repeat', 'arrow-up', 'arrow-down', 'arrow-left' ]
+        // }
     ]
 });
 
+
+// Game reducer
 export default function(state = initialState, action) {
     switch (action.type) {
         case NEXT_NIVEL:

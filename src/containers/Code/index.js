@@ -35,12 +35,12 @@ class Code extends Component {
         super(props);
 
         this.state = {
-            showWinModal: false,
-            nivelStats: Map({
-                tries: 0,
-                correctAnwsers: 0,
-                wrongAnwsers: 0
-            })
+            showWinModal: false
+            // nivelStats: Map({
+            //     tries: 0,
+            //     correctAnwsers: 0,
+            //     wrongAnwsers: 0
+            // })
         };
         this.runCode = this.runCode.bind(this);
     }
@@ -243,9 +243,16 @@ class Code extends Component {
     // TODO: Maybe you can do some refactoring in here
     continue() {
         this.setState({ showWinModal: false });
-        this.props.nextNivel();
         this.props.resetUserPath();
         this.props.resetApp();
+
+        // Maybe you can do it inside the reducer
+        if (this.props.lastNivel < this.props.gameNivelId) {
+            this.props.nextNivel();
+        } else {
+            // this.context.history.push('/');
+            this.props.history.push('/');
+        }
     }
 
     render() {

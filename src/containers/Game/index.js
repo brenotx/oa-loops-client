@@ -24,6 +24,10 @@ class Game extends Component {
     }
     
     render() {
+
+        // Variável usada para evitar a chamda de um nivel inexistente.
+        const lastNivel = this.props.game.get('nivels').size;
+
         return (
             <Grid>
                 <Row>
@@ -35,7 +39,7 @@ class Game extends Component {
                         <Instructions gameNivelInstructions={this.props.gameNivelInstructions} />
                     </Col>
                     <Col md={6}>
-                        <Code gameNivelPath={this.props.gameNivelPath} gameNivelId={this.props.gameNivelId} />
+                        <Code gameNivelPath={this.props.gameNivelPath} gameNivelId={this.props.gameNivelId} lastNivel={lastNivel} history={this.props.history} />
                     </Col>
                 </Row>
             </Grid>

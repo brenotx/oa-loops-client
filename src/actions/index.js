@@ -33,6 +33,8 @@ export const resetApp = () => {
     }
 }
 
+
+// Game action
 export const nextNivel = () => {
     return {
         type: NEXT_NIVEL
