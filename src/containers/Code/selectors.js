@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 
 const selectInstructions = state => state.get('instructionReducer');
 const selectCode = state => state.get('code');
+// const selectAuth = state => state.get('auth');
 
 const makeSelectMainInstructions = () => createSelector(
     selectInstructions,
@@ -33,6 +34,11 @@ const makeSelectNivelStats = () => createSelector(
     (codeState) => codeState.get('nivelStats')
 );
 
+// const makeSelectUserID = () => createSelector(
+//     selectAuth,
+//     (authState) => authState.get('user_id')
+// );
+
 export {
     selectInstructions,
     makeSelectMainInstructions,
@@ -42,4 +48,6 @@ export {
     selectCode,
     makeSelectUserPath,
     makeSelectNivelStats
+    // selectAuth,
+    // makeSelectUserID
 };

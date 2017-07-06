@@ -6,7 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import { Panel, Col, Glyphicon, ButtonToolbar, Button, Modal } from 'react-bootstrap';
 import * as firebase from 'firebase';
 
-import { setUserPath, resetUserPath, fetchNivelStats, updateNivelStats } from './actions';
+import { setUserPath, resetUserPath, fetchNivelStats, updateNivelStats, updateUserNivelStats } from './actions';
 import {
     removeInstruction,
     setActiveBox,
@@ -20,6 +20,7 @@ import {
     makeSelectActiveBox,
     makeSelectProgRepeat,
     makeSelectNivelStats
+    // makeSelectUserID
 } from './selectors';
 
 const validMoves = Map({
@@ -87,7 +88,13 @@ class Code extends Component {
             this.setState({ showWinModal: true });
             this.props.nivelStats[this.props.gameNivelId].correctAnwsers += 1;
             const { nivelId, correctAnwsers, wrongAnwsers } = this.props.nivelStats[this.props.gameNivelId];
+
             this.props.updateNivelStats({ nivelId, correctAnwsers, wrongAnwsers });
+            
+            const user_id = localStorage.getItem('user_id');
+            const maxNivel = this.props.gameNivelId;
+            // const user_id = this.props.user_id;
+            this.props.updateUserNivelStats({ user_id, maxNivel });
         } else {
             this.props.nivelStats[this.props.gameNivelId].wrongAnwsers += 1;
             console.log('perdeu');
@@ -247,7 +254,7 @@ class Code extends Component {
         this.props.resetApp();
 
         // Maybe you can do it inside the reducer
-        if (this.props.lastNivel < this.props.gameNivelId) {
+        if (this.props.lastNivel > this.props.gameNivelId) {
             this.props.nextNivel();
         } else {
             // this.context.history.push('/');
@@ -310,6 +317,7 @@ const mapStateToProps = createStructuredSelector({
     activeBox: makeSelectActiveBox(),
     progRepeat: makeSelectProgRepeat(),
     nivelStats: makeSelectNivelStats()
+    // user_id: makeSelectUserID()
 });
 
 function mapDispatchToProps(dispatch) {
@@ -322,7 +330,8 @@ function mapDispatchToProps(dispatch) {
         setUserPath,
         resetUserPath,
         fetchNivelStats,
-        updateNivelStats }, dispatch);
+        updateNivelStats,
+        updateUserNivelStats }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Code);

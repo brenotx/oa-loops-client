@@ -4,7 +4,8 @@ import {
     SET_USER_PATH,
     RESET_USER_PATH,
     FETCH_NIVEL_STATS,
-    UPDATE_NIVEL_STATS
+    UPDATE_NIVEL_STATS,
+    UPDATE_USER_NIVEL_STATS
 } from './constants';
 
 const API_URL = 'http://localhost:3090';
@@ -41,6 +42,15 @@ export function updateNivelStats({ nivelId, correctAnwsers, wrongAnwsers }) {
         axios.post(`${API_URL}/nivel`, { nivelId, correctAnwsers, wrongAnwsers })
             .then(response => {
                 console.log("Success!");
+            });
+    };
+}
+
+export function updateUserNivelStats({ user_id, maxNivel }) {
+    return function(dispatch) {
+        axios.post(`${API_URL}/setUserMaxNivel`, { user_id, maxNivel })
+            .then(response => {
+                console.log("User nivel stats updated!");
             });
     };
 }

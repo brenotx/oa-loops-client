@@ -7,8 +7,9 @@ import {
     makeSelectActiveBox,
     makeSelectProgRepeat,
     selectCode,
-    makeSelectUserPath,
-    makeSelectNivelStats
+    makeSelectUserPath
+    // makeSelectNivelStats,
+    // makeSelectUserID
 } from '../selectors';
 
 describe('selectInstructions', () => {
@@ -30,6 +31,27 @@ describe('selectCode', () => {
         expect(selectCode(mockedState)).toEqual(codeState);
     });
 });
+
+// describe('selectAuth', () => {
+//     it('should select the auth state', () => {
+//         const authState = fromJS({});
+//         const mockedState = fromJS({ auth: authState });
+//         expect(selectAuth(mockedState)).toEqual(authState);
+//     });
+// });
+
+// describe('makeSelectUserID', () => {
+//     const userIdSelector = makeSelectUserID(); 
+//     it('should select the authenticated user id', () => {
+//         const userId = '';
+//         const mockedState = fromJS({
+//             auth: {
+//                 user_id: ''
+//             }
+//         });
+//         expect(userIdSelector(mockedState)).toEqual(userId);
+//     });
+// });
 
 describe('makeSelectMainInstructions', () => {
     const mainInstructionsSelector = makeSelectMainInstructions();

@@ -10,13 +10,17 @@ import {
 const initialState = fromJS({
     error: '',
     authenticated: false,
+    user_id: '',
     message: ''
 });
 
 export default function(state = initialState, action) {
     switch(action.type) {
         case AUTH_USER:
-            return state.set('authenticated', true);
+            return state.merge({
+                'authenticated': true,
+                'user_id': action.payload
+            });
         case UNAUTH_USER:
             return state.set('authenticated', false);
         case AUTH_ERROR:
