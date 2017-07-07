@@ -14,6 +14,20 @@ import {
 import { makeSelectNivels } from './selectors';
 
 class NivelsPage extends Component {
+
+    renderNivels() {
+        return this.props.nivels.map(nivel => {
+            return (
+                 <ListGroupItem key={nivel.get('id')}>
+                    <Button bsStyle="primary" block>
+                        Nível {nivel.get('id')} &nbsp;
+                        <Glyphicon glyph="lock" />
+                    </Button>
+                </ListGroupItem>
+            );
+        });
+    }
+
     render() {
         const nivels = this.props.nivels;
         
@@ -22,24 +36,7 @@ class NivelsPage extends Component {
                 <Row>
                     <Col>
                         <ListGroup>
-                            <ListGroupItem>
-                                <Button bsStyle="primary" block>
-                                    Nível 1 &nbsp;
-                                    <Glyphicon glyph="lock" />
-                                </Button>
-                            </ListGroupItem>
-                            <ListGroupItem>
-                                <Button bsStyle="primary" block>
-                                    Nível 2 &nbsp;
-                                    <Glyphicon glyph="lock" />
-                                </Button>
-                            </ListGroupItem>
-                            <ListGroupItem>
-                                <Button bsStyle="primary" block>
-                                    Nível 3 &nbsp;
-                                    <Glyphicon glyph="lock" />
-                                </Button>
-                            </ListGroupItem>
+                            {this.renderNivels()}
                         </ListGroup>
                     </Col>
                 </Row>
