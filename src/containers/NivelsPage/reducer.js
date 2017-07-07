@@ -1,6 +1,6 @@
 import { fromJS } from 'immutable';
 
-import { NEXT_NIVEL } from '../actions/index';
+// import { NEXT_NIVEL } from '../actions/index';
 
 const initialState = fromJS({
     gameNivelId: 0,
@@ -24,12 +24,13 @@ const initialState = fromJS({
 });
 
 
-// Game reducer
-export default function(state = initialState, action) {
+function nivelPageReducer(state = initialState, action) {
     switch (action.type) {
-        case NEXT_NIVEL:
-            return state.set('gameNivelId', state.get('gameNivelId') + 1); 
+        // case NEXT_NIVEL:
+            // return state.set('gameNivelId', state.get('gameNivelId') + 1); 
         default:
             return state;
     }
 }
+
+export default nivelPageReducer;

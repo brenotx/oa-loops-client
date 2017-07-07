@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import { 
     Grid,
     Row,
@@ -9,8 +11,12 @@ import {
     ListGroupItem
 } from 'react-bootstrap';
 
-class NivelPage extends Component {
+import { makeSelectNivels } from './selectors';
+
+class NivelsPage extends Component {
     render() {
+        const nivels = this.props.nivels;
+        
         return (
             <Grid>
                 <Row>
@@ -42,4 +48,9 @@ class NivelPage extends Component {
     }
 }
 
-export default NivelPage;
+// TODO: I don't think you need to use createStructuredSelector here
+const mapStateToProps = createStructuredSelector({
+    nivels: makeSelectNivels()
+});
+
+export default connect(mapStateToProps)(NivelsPage);

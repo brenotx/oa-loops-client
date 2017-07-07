@@ -20,7 +20,7 @@ describe('<App />', () => {
             <App />
         );
         expect(renderedComponent.find(Header).length).toBe(1);
-    }); 
+    });
 
   // it('should render three <Game /> components', () => {
     // const wrapper = shallow(<App />);

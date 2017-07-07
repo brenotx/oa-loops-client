@@ -13,7 +13,7 @@ import SignOut from './containers/auth/SignOut';
 import SignUp from './containers/auth/SignUp';
 import StatsPage from './containers/StatsPage';
 
-import NivelPage from './containers/NivelPage';
+import NivelsPage from './containers/NivelsPage';
 import reducers from './reducers';
 import RequireAuth from './containers/auth/require_auth';
 import { AUTH_USER } from './containers/auth/constants';
@@ -42,7 +42,7 @@ ReactDOM.render(
                 <Route path="/signout" component={SignOut} />
                 <Route path="/signup" component={SignUp} />
                 <Route path="/game" component={RequireAuth(Game)} />
-                <Route path="/nivel" component={NivelPage} />
+                <Route path="/nivels" component={NivelsPage} />
                 <Route path="/stats" component={StatsPage} />
             </App>
         </BrowserRouter>

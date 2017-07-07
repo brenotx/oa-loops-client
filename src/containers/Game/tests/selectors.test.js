@@ -1,5 +1,4 @@
 import { fromJS } from 'immutable';
-import { createSelector } from 'reselect';
 
 import {
     selectGame,
