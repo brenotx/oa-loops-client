@@ -1,0 +1,1 @@
+export const FETCH_USER_MAX_NIVEL = 'FETCH_USER_MAX_NIVEL';

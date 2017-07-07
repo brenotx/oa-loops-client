@@ -12,8 +12,15 @@ import {
 } from 'react-bootstrap';
 
 import { makeSelectNivels } from './selectors';
+import { fetchUserMaxNivel } from './actions';
+
 
 class NivelsPage extends Component {
+
+    componentDidMount() {
+        const userId = localStorage.getItem('user_id');
+        this.props.fetchUserMaxNivel(userId);
+    }
 
     renderNivels() {
         return this.props.nivels.map(nivel => {
@@ -29,8 +36,6 @@ class NivelsPage extends Component {
     }
 
     render() {
-        const nivels = this.props.nivels;
-        
         return (
             <Grid>
                 <Row>
@@ -50,4 +55,4 @@ const mapStateToProps = createStructuredSelector({
     nivels: makeSelectNivels()
 });
 
-export default connect(mapStateToProps)(NivelsPage);
+export default connect(mapStateToProps, { fetchUserMaxNivel })(NivelsPage);
