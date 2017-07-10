@@ -11,8 +11,8 @@ import {
     ListGroupItem
 } from 'react-bootstrap';
 
-import { makeSelectNivels } from './selectors';
 import { fetchUserMaxNivel } from './actions';
+import { makeSelectNivels, makeSelectUserMaxNivel } from './selectors';
 
 
 class NivelsPage extends Component {
@@ -22,13 +22,20 @@ class NivelsPage extends Component {
         this.props.fetchUserMaxNivel(userId);
     }
 
+    renderLocker(nivelId) {
+        if (nivelId > this.props.userMaxNivel) {
+            return <Glyphicon glyph="lock" />;
+        }
+        return;
+    }
+
     renderNivels() {
         return this.props.nivels.map(nivel => {
             return (
                  <ListGroupItem key={nivel.get('id')}>
                     <Button bsStyle="primary" block>
                         Nível {nivel.get('id')} &nbsp;
-                        <Glyphicon glyph="lock" />
+                        {this.renderLocker(nivel.get('id'))}
                     </Button>
                 </ListGroupItem>
             );
@@ -52,7 +59,8 @@ class NivelsPage extends Component {
 
 // TODO: I don't think you need to use createStructuredSelector here
 const mapStateToProps = createStructuredSelector({
-    nivels: makeSelectNivels()
+    nivels: makeSelectNivels(),
+    userMaxNivel: makeSelectUserMaxNivel()
 });
 
 export default connect(mapStateToProps, { fetchUserMaxNivel })(NivelsPage);

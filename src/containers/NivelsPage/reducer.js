@@ -25,7 +25,7 @@ const initialState = fromJS({
 });
 
 
-function nivelPageReducer(state = initialState, action) {
+function nivelsPageReducer(state = initialState, action) {
     switch (action.type) {
         case FETCH_USER_MAX_NIVEL:
             return state.set('userMaxNivel', action.payload.maxNivel);
@@ -34,4 +34,4 @@ function nivelPageReducer(state = initialState, action) {
     }
 }
 
-export default nivelPageReducer;
+export default nivelsPageReducer;

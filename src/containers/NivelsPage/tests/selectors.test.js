@@ -2,7 +2,8 @@ import { fromJS } from 'immutable';
 
 import {
     selectNivelsPage,
-    makeSelectNivels
+    makeSelectNivels,
+    makeSelectUserMaxNivel
 } from '../selectors';
 
 describe('selectNivelsPage', () => {
@@ -28,4 +29,19 @@ describe('makeSelectNivels', () => {
         expect(nivelSelector(mockedState)).toEqual(nivels);
     });
     
+});
+
+
+describe('makeSelectUserMaxNivel', () => {
+    const userMaxNivelSelector = makeSelectUserMaxNivel();
+    it('should select the user max nivel', () => {
+        const userMaxNivel = 0;
+        const mockedState = fromJS({
+            nivelsPage: {
+                userMaxNivel: 0
+            }
+        });
+        expect(userMaxNivelSelector(mockedState)).toEqual(userMaxNivel);
+    });
+
 });

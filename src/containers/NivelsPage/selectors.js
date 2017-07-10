@@ -7,8 +7,14 @@ const makeSelectNivels = () => createSelector(
     (nivelsPageState) => nivelsPageState.get('nivels')
 );
 
+const makeSelectUserMaxNivel = () => createSelector(
+    selectNivelsPage,
+    (nivelsPageState) => nivelsPageState.get('userMaxNivel')
+);
+
 
 export {
     selectNivelsPage,
-    makeSelectNivels
+    makeSelectNivels,
+    makeSelectUserMaxNivel
 };
