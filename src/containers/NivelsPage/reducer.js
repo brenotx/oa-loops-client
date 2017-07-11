@@ -1,6 +1,6 @@
 import { fromJS } from 'immutable';
 
-import { FETCH_USER_MAX_NIVEL } from './constants';
+import { FETCH_USER_MAX_NIVEL, SET_CURRENT_NIVEL } from './constants';
 
 const initialState = fromJS({
     gameNivelId: 0,
@@ -29,6 +29,8 @@ function nivelsPageReducer(state = initialState, action) {
     switch (action.type) {
         case FETCH_USER_MAX_NIVEL:
             return state.set('userMaxNivel', action.payload.maxNivel);
+        case SET_CURRENT_NIVEL:
+            return state.set('gameNivelId', action.currentNivel);
         default:
             return state;
     }

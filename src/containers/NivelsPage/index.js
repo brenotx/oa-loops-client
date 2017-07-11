@@ -11,7 +11,7 @@ import {
     ListGroupItem
 } from 'react-bootstrap';
 
-import { fetchUserMaxNivel } from './actions';
+import { fetchUserMaxNivel, setCurrentNivel } from './actions';
 import { makeSelectNivels, makeSelectUserMaxNivel } from './selectors';
 
 
@@ -29,11 +29,16 @@ class NivelsPage extends Component {
         return;
     }
 
+    onNivelButtonClick(selectedNivelId) {
+        this.props.setCurrentNivel(selectedNivelId); // TODO: Do you really need this shit?
+        this.props.history.push('/game', { nivelId: selectedNivelId});
+    }
+
     renderNivels() {
         return this.props.nivels.map(nivel => {
             return (
                  <ListGroupItem key={nivel.get('id')}>
-                    <Button bsStyle="primary" block>
+                    <Button bsStyle="primary" block onClick={() => this.onNivelButtonClick(nivel.get('id'))}>
                         Nível {nivel.get('id')} &nbsp;
                         {this.renderLocker(nivel.get('id'))}
                     </Button>
@@ -63,4 +68,4 @@ const mapStateToProps = createStructuredSelector({
     userMaxNivel: makeSelectUserMaxNivel()
 });
 
-export default connect(mapStateToProps, { fetchUserMaxNivel })(NivelsPage);
+export default connect(mapStateToProps, { fetchUserMaxNivel, setCurrentNivel })(NivelsPage);

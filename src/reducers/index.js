@@ -6,6 +6,7 @@ import InstructionReducer from './instructions_reducer';
 import statsPageReducer from '../containers/StatsPage/reducer';
 import nivelsPageReducer from '../containers/NivelsPage/reducer';
 import gameReducer from './reducer_nivel';
+import gameNewReducer from '../containers/Game/reducer';
 import codeReducer from '../containers/Code/reducer';
 import authReducer from '../containers/auth/reducer';
 
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
     game: gameReducer,
     code: codeReducer,
     auth: authReducer,
-    form: formReducer
+    form: formReducer,
+    gameNew: gameNewReducer
 });
 
 export default rootReducer;

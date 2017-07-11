@@ -44,6 +44,7 @@ ReactDOM.render(
                 <Route path="/game" component={RequireAuth(Game)} />
                 <Route path="/nivels" component={NivelsPage} />
                 <Route path="/stats" component={StatsPage} />
+                <Route path="/nivel/:id" component={Game} />
             </App>
         </BrowserRouter>
     </Provider>,

@@ -1,8 +1,15 @@
 import axios from "axios";
 
-import { FETCH_USER_MAX_NIVEL } from './constants';
+import { FETCH_USER_MAX_NIVEL, SET_CURRENT_NIVEL } from './constants';
 
 const API_URL = 'http://localhost:3090';
+
+export function setCurrentNivel(currentNivel) {
+    return {
+        type: SET_CURRENT_NIVEL,
+        currentNivel
+    };
+}
 
 export function fetchUserMaxNivel(userId) {
     return function(dispatch) {
