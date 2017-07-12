@@ -247,7 +247,7 @@ class Code extends Component {
         );
     }
 
-    // TODO: Maybe you can do some refactoring in here
+    // TODO: Maybe!?!!! you can do some refactoring in here
     continue() {
         this.setState({ showWinModal: false });
         this.props.resetUserPath();
@@ -255,9 +255,11 @@ class Code extends Component {
 
         // Maybe you can do it inside the reducer
         if (this.props.lastNivel > this.props.gameNivelId) {
-            this.props.nextNivel();
+            const nextNivelId = this.props.gameNivelId + 1;
+            this.props.updateNivelId({ nivelId: nextNivelId });
+            // this.props.history.push('/game');
+            // this.props.nextNivel();
         } else {
-            // this.context.history.push('/');
             this.props.history.push('/');
         }
     }

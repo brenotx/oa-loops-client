@@ -24,7 +24,7 @@ const initialState = fromJS({
 });
 
 
-// Game reducer
+// Code reducer
 export default function(state = initialState, action) {
     switch (action.type) {
         case NEXT_NIVEL:

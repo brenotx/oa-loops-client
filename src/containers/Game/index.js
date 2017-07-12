@@ -19,32 +19,48 @@ import { nivels } from './mock.js';
 
 
 class Game extends Component {
+    constructor(props) {
+        super(props);   
+        this.state = { nivelId: 0 };
 
-    componentWillMount() {
-        const { nivelId }  = this.props.location.state;
-        this.props.fetchNivel(nivelId);
+        this.updateNivelId = this.updateNivelId.bind(this);
+    }
+
+    componentDidMount() {
+        this.setState({ nivelId: this.props.location.state.nivelId }, () => {
+            this.props.fetchNivel(this.state.nivelId);
+        });
+        // const { nivelId }  = this.props.location.state;
+        // this.props.fetchNivel(this.state.nivelId);
     }
     
+    updateNivelId({ nivelId }) {
+        this.setState({ nivelId }, () => {
+            this.props.fetchNivel(this.state.nivelId);
+            console.log(this.state.nivelId);
+        });
+        
+    }
+
     render() {
 
         // Variável usada para evitar a chamda de um nivel inexistente.
         // const lastNivel = this.props.game.get('nivels').size;
         
         const lastNivel = nivels.size; // Create a selector for it
-        const nivelId = this.props.location.state.nivelId;
+        // const nivelId = this.props.location.state.nivelId;
 
         return (
             <Grid>
                 <Row>
-                    <PageHeader><small>Nível {nivelId}</small></PageHeader>
+                    <PageHeader><small>Nível {this.state.nivelId}</small></PageHeader>
                    
-                    
                     <Col md={6}>
                         <Board rows={5} columns={5} nivels={this.props.gameNivelPath} userPath={this.props.codeUserPath} />
                         <Instructions gameNivelInstructions={this.props.gameNivelInstructions} />
                     </Col>
                     <Col md={6}>
-                        <Code gameNivelPath={this.props.gameNivelPath} gameNivelId={nivelId} lastNivel={lastNivel} history={this.props.history} />
+                        <Code gameNivelPath={this.props.gameNivelPath} gameNivelId={this.state.nivelId} lastNivel={lastNivel} history={this.props.history} updateNivelId={this.updateNivelId} />
                     </Col>
                 </Row>
             </Grid>

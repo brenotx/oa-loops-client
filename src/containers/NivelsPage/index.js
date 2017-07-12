@@ -37,7 +37,7 @@ class NivelsPage extends Component {
     }
 
     onNivelButtonClick(selectedNivelId) {
-        this.props.setCurrentNivel(selectedNivelId); // TODO: Do you really need this shit?
+        // this.props.setCurrentNivel(selectedNivelId); // TODO: Do you really need this shit?
         this.props.history.push('/game', { nivelId: selectedNivelId});
     }
 
