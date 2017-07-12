@@ -22,8 +22,15 @@ class NivelsPage extends Component {
         this.props.fetchUserMaxNivel(userId);
     }
 
+    handleButtonDisabled(nivelId) {
+        if (nivelId > this.props.userMaxNivel + 1) {
+            return true;
+        }
+        return false;
+    }
+
     renderLocker(nivelId) {
-        if (nivelId > this.props.userMaxNivel) {
+        if (nivelId > this.props.userMaxNivel + 1) {
             return <Glyphicon glyph="lock" />;
         }
         return;
@@ -34,11 +41,12 @@ class NivelsPage extends Component {
         this.props.history.push('/game', { nivelId: selectedNivelId});
     }
 
+    // TODO: Redundant logic at renderLocker and handleButtonDisabled methods
     renderNivels() {
         return this.props.nivels.map(nivel => {
             return (
                  <ListGroupItem key={nivel.get('id')}>
-                    <Button bsStyle="primary" block onClick={() => this.onNivelButtonClick(nivel.get('id'))}>
+                    <Button bsStyle="primary" block onClick={() => this.onNivelButtonClick(nivel.get('id'))} disabled={this.handleButtonDisabled((nivel.get('id')))}>
                         Nível {nivel.get('id')} &nbsp;
                         {this.renderLocker(nivel.get('id'))}
                     </Button>
