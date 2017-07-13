@@ -42,9 +42,8 @@ ReactDOM.render(
                 <Route path="/signout" component={SignOut} />
                 <Route path="/signup" component={SignUp} />
                 <Route path="/game" component={RequireAuth(Game)} />
-                <Route path="/nivels" component={NivelsPage} />
+                <Route path="/nivels" component={RequireAuth(NivelsPage)} />
                 <Route path="/stats" component={StatsPage} />
-                <Route path="/nivel/:id" component={Game} />
             </App>
         </BrowserRouter>
     </Provider>,

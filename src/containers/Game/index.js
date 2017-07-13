@@ -27,28 +27,22 @@ class Game extends Component {
     }
 
     componentDidMount() {
-        this.setState({ nivelId: this.props.location.state.nivelId }, () => {
-            this.props.fetchNivel(this.state.nivelId);
-        });
-        // const { nivelId }  = this.props.location.state;
-        // this.props.fetchNivel(this.state.nivelId);
+        if (this.props.location.state) {
+            this.setState({ nivelId: this.props.location.state.nivelId }, () => {
+                this.props.fetchNivel(this.state.nivelId);
+            });
+        }
     }
     
     updateNivelId({ nivelId }) {
         this.setState({ nivelId }, () => {
             this.props.fetchNivel(this.state.nivelId);
-            console.log(this.state.nivelId);
         });
-        
     }
 
     render() {
 
-        // Variável usada para evitar a chamda de um nivel inexistente.
-        // const lastNivel = this.props.game.get('nivels').size;
-        
         const lastNivel = nivels.size; // Create a selector for it
-        // const nivelId = this.props.location.state.nivelId;
 
         return (
             <Grid>
