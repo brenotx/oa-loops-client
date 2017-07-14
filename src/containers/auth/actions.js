@@ -30,6 +30,7 @@ export function signupUser({ email, password }, history) {
             .then(response => {
                 dispatch({ type: AUTH_USER });
                 localStorage.setItem('token', response.data.token);
+                localStorage.setItem('user_id', response.data.user_id);
                 history.push('/nivels');
             })
             .catch(response => dispatch(authError(response.data.error)));

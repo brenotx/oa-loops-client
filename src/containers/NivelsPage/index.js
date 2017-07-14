@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { 
-    Grid,
-    Row,
-    Col,
-    Glyphicon,
-    Button,
-    ListGroup,
-    ListGroupItem
-} from 'react-bootstrap';
 
 import { fetchUserMaxNivel, setCurrentNivel } from './actions';
 import { makeSelectNivels, makeSelectUserMaxNivel } from './selectors';
 
 
 class NivelsPage extends Component {
+    // constructor(props) {
+    //     super(props);
+
+    //     this.renderNivels = this.renderNivels.bind(this);
+    //     this.handleButtonDisabled = this.handleButtonDisabled.bind(this);
+    //     this.renderLocker = this.renderLocker.bind(this);
+    // }
 
     componentDidMount() {
         const userId = localStorage.getItem('user_id');
@@ -31,13 +29,12 @@ class NivelsPage extends Component {
 
     renderLocker(nivelId) {
         if (nivelId > this.props.userMaxNivel + 1) {
-            return <Glyphicon glyph="lock" />;
+            return <span className="glyphicon glyphicon-lock"></span>;
         }
         return;
     }
 
     onNivelButtonClick(selectedNivelId) {
-        // this.props.setCurrentNivel(selectedNivelId); // TODO: Do you really need this shit?
         this.props.history.push('/game', { nivelId: selectedNivelId});
     }
 
@@ -45,27 +42,21 @@ class NivelsPage extends Component {
     renderNivels() {
         return this.props.nivels.map(nivel => {
             return (
-                 <ListGroupItem key={nivel.get('id')}>
-                    <Button bsStyle="primary" block onClick={() => this.onNivelButtonClick(nivel.get('id'))} disabled={this.handleButtonDisabled((nivel.get('id')))}>
+                 <div className="list-group-item" key={nivel.get('id')}>
+                    <button type="button" className="btn btn-primary btn-block" onClick={() => this.onNivelButtonClick(nivel.get('id'))} disabled={this.handleButtonDisabled((nivel.get('id')))}>
                         Nível {nivel.get('id')} &nbsp;
                         {this.renderLocker(nivel.get('id'))}
-                    </Button>
-                </ListGroupItem>
+                    </button>
+                </div>
             );
         });
     }
 
     render() {
         return (
-            <Grid>
-                <Row>
-                    <Col>
-                        <ListGroup>
-                            {this.renderNivels()}
-                        </ListGroup>
-                    </Col>
-                </Row>
-            </Grid>
+            <div>
+                { this.renderNivels() }
+            </div>
         );
     }
 }
