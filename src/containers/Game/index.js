@@ -50,7 +50,7 @@ class Game extends Component {
                     <PageHeader><small>Nível {this.state.nivelId}</small></PageHeader>
                    
                     <Col md={6}>
-                        <Board rows={5} columns={5} nivels={this.props.gameNivelPath} userPath={this.props.codeUserPath} />
+                        <Board rows={6} columns={6} nivels={this.props.gameNivelPath} userPath={this.props.codeUserPath} />
                         <Instructions gameNivelInstructions={this.props.gameNivelInstructions} />
                     </Col>
                     <Col md={6}>

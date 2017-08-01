@@ -4,7 +4,7 @@ export const nivels = fromJS([
     {
         id: 1,
         path: [ "20", "21", "22", "23", "24" ],
-        instructions: [ 'arrow-right'],
+        instructions: [ 'arrow-right', 'arrow-up', 'repeat', 'arrow-down', 'arrow-left' ],
     },
     {
         id: 2,

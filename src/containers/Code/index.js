@@ -219,9 +219,12 @@ class Code extends Component {
 
     checkCode2(path, moves) {
         const self = this;
-        let count = 0;
+        let stop = false;
         const promises = moves.map((move, idx) => {
-            if (move === path.get(idx) || !count) {
+            if (move === path.get(idx) || !stop) {
+                if (move != path.get(idx)) {
+                    stop = true;
+                }
                 const promise = (function(index) {
                 return new Promise(resolve => setTimeout(() => {
                         self.props.setUserPath(moves.get(idx));
@@ -229,8 +232,6 @@ class Code extends Component {
                     }, idx * 1000));
                 })(idx);
                 return promise;
-            } else {
-                count = 1;
             }
         });
         return promises;
