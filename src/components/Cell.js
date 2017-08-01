@@ -14,15 +14,27 @@ class Cell extends Component {
     }
 
     render() {
-        let className = 'cell cell-icon';
+        let className = 'dark-blue cell cell-icon';
+        const white = {
+            color: 'white',
+            verticalAlign: 'middle',
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)'
+        };
+
         if (this.active()) {
             className += ' active';
         }
+
         if (this.move()) {
             className = 'cell cell-icon good-move';
         }
+        
         return (
             <div className={className}>
+                <span style={white}>&bull;</span>
                 {/* {this.props.id} */}
                 {/* <img className="pedestrianWalking" src={pedestrianWalking} alt="pedestrian-walking" width="25px" height="25px" /> */}
             </div>

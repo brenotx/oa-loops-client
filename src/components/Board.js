@@ -21,7 +21,7 @@ class Board extends Component {
     render() {
         return (
             <Row>
-                <Col md={6} xsOffset={3}>
+                <Col md={7} xsOffset={3}>
                     {this.matrix.map((row, idx) => (
                         <Row key={idx}>
                             {row.map(cellId => <Cell key={cellId} id={cellId}
