@@ -36,7 +36,8 @@ class Code extends Component {
         super(props);
 
         this.state = {
-            showWinModal: false
+            showWinModal: false,
+            showLoseModal: false
             // nivelStats: Map({
             //     tries: 0,
             //     correctAnwsers: 0,
@@ -97,6 +98,7 @@ class Code extends Component {
             this.props.updateUserNivelStats({ user_id, maxNivel });
         } else {
             this.props.nivelStats[this.props.gameNivelId].wrongAnwsers += 1;
+            this.setState({ showLoseModal: true });
             console.log('perdeu');
         }
     }
@@ -265,6 +267,12 @@ class Code extends Component {
         }
     }
 
+    tryAgain() {
+        this.setState({ showLoseModal: false });
+        this.props.resetUserPath();
+        this.props.resetApp();
+    }
+
     render() {
         const { mainInstructions, progInstructions, progRepeat } = this.props;
         const codeProps = {
@@ -300,14 +308,25 @@ class Code extends Component {
                     </ButtonToolbar>
                 </Panel>
         
+                {/* TODO: Refactor modals */}
                 <Modal bsSize="small" show={this.state.showWinModal}>
-                        <Modal.Body>
-                            Parabéns você venceu!!!
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button onClick={() => this.continue()}>Continuar</Button>
-                        </Modal.Footer>
+                    <Modal.Body>
+                        Parabéns você venceu!!!
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={() => this.continue()}>Continuar</Button>
+                    </Modal.Footer>
                 </Modal>
+
+                <Modal bsSize="small" show={this.state.showLoseModal}>
+                    <Modal.Body>
+                        A solução esta errada, tente novamente.
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={() => this.tryAgain()}>Tentar novamente</Button>
+                    </Modal.Footer>
+                </Modal>
+
             </Col>
         );
     }
