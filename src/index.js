@@ -18,8 +18,10 @@ import reducers from './reducers';
 import RequireAuth from './containers/auth/require_auth';
 import { AUTH_USER } from './containers/auth/constants';
 
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/css/bootstrap-theme.css';
+// import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap/dist/css/bootstrap-theme.css';
+import './bootstrap-3.3.7-dist/css/bootstrap.css';
+// import './bootstrap-3.3.7-dist/css/bootstrap-theme.css';
 import './index.css';
 
 const store = createStore(
