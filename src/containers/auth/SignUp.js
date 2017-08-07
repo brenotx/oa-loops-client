@@ -28,7 +28,7 @@ class SignUp extends Component {
             <div className={className}>
                 <label>{field.label}</label>
                 <input className="form-control" type={field.type} {...field.input} />
-                <div className="text-help">
+                <div className="text-warning">
                 {touched ? error : ""}
                 </div>
             </div>
@@ -39,38 +39,42 @@ class SignUp extends Component {
         const { handleSubmit } = this.props;
 
         return (
-            <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-                <fieldset className="form-group">
-                    <Field
-                        label="Email:"
-                        name="email"
-                        component={this.renderField}
-                        type="email"
-                        placeholder="email"
-                    />
-                </fieldset>
-                <fieldset className="form-group">
-                    <Field
-                        label="Password:"
-                        name="password"
-                        component={this.renderField}
-                        type="password"
-                        placeholder="password"
-                    />
-                </fieldset>
+            <div className="col-sm-6 col-md-4 col-md-offset-4">
+                <form className="well bs-component" onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+                    <fieldset className="form-group">
+                        <Field
+                            label="Email:"
+                            name="email"
+                            component={this.renderField}
+                            type="email"
+                            placeholder="email"
+                        />
+                    </fieldset>
+                    <fieldset className="form-group">
+                        <Field
+                            label="Password:"
+                            name="password"
+                            component={this.renderField}
+                            type="password"
+                            placeholder="password"
+                        />
+                    </fieldset>
 
-                <fieldset className="form-group">
-                    <Field
-                        label="Password Confirm:"
-                        name="passwordConfirm"
-                        component={this.renderField}
-                        type="password"
-                        placeholder="password"
-                    />
-                </fieldset>
-                {this.renderAlert()}
-                <button action="submit" className="btn btn-primary">Sign up!</button>
-            </form>
+                    <fieldset className="form-group">
+                        <Field
+                            label="Password Confirm:"
+                            name="passwordConfirm"
+                            component={this.renderField}
+                            type="password"
+                            placeholder="password"
+                        />
+                    </fieldset>
+                    {this.renderAlert()}
+                    <div className="text-right">
+                        <button className="btn btn-primary" action="submit">Sign up!</button>
+                    </div>
+                </form>
+            </div>
         );
     }
 }

@@ -7,15 +7,17 @@ import { addInstruction } from '../actions/index';
 
 class Instructions extends Component {
     
+
+    /* <button className="btn btn-default" key={idx} onClick={ () => this.props.addInstruction(icon)}>
+            <Glyphicon glyph={icon} />
+        </button> */
     render() {
         return (
             <Row>
                 <Col md={8} xsOffset={2}>
                     <Panel header="Instruções">
-                        {this.props.gameNivelInstructions.map( (icon, idx) =>
-                            <Button key={idx} bsStyle="primary" onClick={ () => this.props.addInstruction(icon)}>
-                                <Glyphicon glyph={icon} />
-                            </Button>
+                        {this.props.gameNivelInstructions.map((icon, idx) =>
+                            <span className={`glyphicon glyphicon-${icon} light-pink small-icon`} aria-hidden="true" onClick={ () => this.props.addInstruction(icon)}></span>
                         )}
                     </Panel>
                     {/* <Panel header="Instruções">

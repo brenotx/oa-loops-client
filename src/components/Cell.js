@@ -18,7 +18,7 @@ class Cell extends Component {
     }
 
     render() {
-        let className = 'dark-blue cell cell-icon';
+        let className = 'cell-back-ground cell cell-icon';
         const white = {
             color: 'white',
             verticalAlign: 'middle',

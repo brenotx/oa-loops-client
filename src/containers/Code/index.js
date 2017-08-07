@@ -283,30 +283,41 @@ class Code extends Component {
 
         return (
             <Col>
-                <Panel header="Código">
-                {console.log("aqui: " + this.props.nivelStats)}
-                    <h5>Main:</h5>
-                    <div className={this.isActive('main')} onClick={() => this.props.setActiveBox('main')}>
-                        {mainInstructions.map( (icon, idx) =>
-                            <Button key={idx} bsStyle="primary" onClick={ () => this.props.removeInstruction(idx)}>
-                                <Glyphicon glyph={icon} />
-                            </Button>
-                        )}
+                <div className="panel panel-default">
+                    <div className="panel-heading">Main</div>
+                    <div className="panel-body">
+                        <div className={this.isActive('main')} onClick={() => this.props.setActiveBox('main')}>
+                            {mainInstructions.map( (icon, idx) =>
+                                <Button key={idx} bsStyle="primary" onClick={ () => this.props.removeInstruction(idx)}>
+                                    <Glyphicon glyph={icon} />
+                                </Button>
+                            )}
+                        </div>
                     </div>
-                    {/* <h5>Prog:</h5> */}
-                    {this.renderSelect()}
-                    <div className={this.isActive('prog')} onClick={() => this.props.setActiveBox('prog')}>
-                        {progInstructions.map( (icon, idx) =>
-                            <Button key={idx} bsStyle="primary" onClick={ () => this.props.removeInstruction(idx)}>
-                                <Glyphicon glyph={icon} />
-                            </Button>
-                        )}
+                </div>
+
+                <div className="text-right">
+                    {/* <button className="btn btn-default" onClick={() => this.props.resetApp()}>Resetar</button>
+                    &nbsp;
+                    <button className="btn btn-default" onClick={() => this.runCode(codeProps)}>Executar</button> */}
+                    <span className="glyphicon glyphicon-refresh light-pink big-play" aria-hidden="true" onClick={() => this.props.resetApp()}></span>
+                    &nbsp;
+                    <span className="glyphicon glyphicon-play-circle light-green big-play" aria-hidden="true" onClick={() => this.runCode(codeProps)}></span>
+                </div>
+                
+                <div className="panel panel-default">
+                    <div className="panel-heading">Prog</div>
+                    <div className="panel-body">
+                        {this.renderSelect()}
+                        <div className={this.isActive('prog')} onClick={() => this.props.setActiveBox('prog')}>
+                            {progInstructions.map( (icon, idx) =>
+                                <Button key={idx} bsStyle="primary" onClick={ () => this.props.removeInstruction(idx)}>
+                                    <Glyphicon glyph={icon} />
+                                </Button>
+                            )}
+                        </div>
                     </div>
-                    <ButtonToolbar>
-                        <Button className="pull-right" bsStyle="primary" onClick={() => this.runCode(codeProps)}>Executar</Button>
-                        <Button className="pull-right" bsStyle="primary" onClick={() => this.props.resetApp()}>Resetar</Button>
-                    </ButtonToolbar>
-                </Panel>
+                </div>
         
                 {/* TODO: Refactor modals */}
                 <Modal bsSize="small" show={this.state.showWinModal}>

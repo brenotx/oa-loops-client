@@ -40,28 +40,32 @@ class SignIn extends Component {
         const { handleSubmit } = this.props;
 
         return (
-            <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-                <fieldset className="form-group">
-                    <Field
-                        label="Email:"
-                        name="email"
-                        component={this.renderField}
-                        type="email"
-                        placeholder="email"
-                    />
-                </fieldset>
-                <fieldset className="form-group">
-                    <Field
-                        label="Password:"
-                        name="password"
-                        component={this.renderField}
-                        type="password"
-                        placeholder="password"
-                    />
-                </fieldset>
-                {this.renderAlert()}
-                <button action="submit" className="btn btn-primary">Sign in</button>
-            </form>
+            <div className="col-sm-6 col-md-4 col-md-offset-4">
+                <form className="well bs-component" onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+                    <fieldset className="form-group">
+                        <Field
+                            label="Email:"
+                            name="email"
+                            component={this.renderField}
+                            type="email"
+                            placeholder="email"
+                        />
+                    </fieldset>
+                    <fieldset className="form-group">
+                        <Field
+                            label="Password:"
+                            name="password"
+                            component={this.renderField}
+                            type="password"
+                            placeholder="password"
+                        />
+                    </fieldset>
+                    {this.renderAlert()}
+                    <div className="text-right">
+                        <button className="btn btn-primary" action="submit">Sign in</button>
+                    </div>
+                </form>
+            </div>
         );
     }
 }

@@ -10,14 +10,31 @@ body {
     margin-right: 4px;
 }
 .active {
-    background-color: #058BDA !important;
+    background-color: #268BD2 !important;
 }
 .good-move {
-    background-color: #00CC00;
+    background-color: #2AA198;
 }
 .bad-move {
-    background-color: #ed3838;
+    background-color: #CB4B16;
 }
+
+.light-green {
+    color: #31D57C
+}
+
+.light-pink {
+    color: #AE6086
+}
+
+.big-play {
+    font-size: 3.2em;
+}
+
+.small-icon {
+    font-size: 1.8em;
+}
+
 .guess-true {
     background-color: #00CC00;
 }
@@ -65,7 +82,7 @@ body {
 }
 
 .dark-blue {
-    background-color: #041E39
+    /* background-color: #041E39 */
 }
 
 .light-blue {
@@ -74,4 +91,8 @@ body {
 
 .light-white {
     background-color: #FCFAF4
+}
+
+.cell-back-ground {
+     background-color: #002b36
 }
