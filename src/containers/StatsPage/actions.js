@@ -2,7 +2,8 @@ import axios from "axios";
 
 import { FETCH_NIVELS_STATS } from './constants';
 
-const API_URL = 'http://localhost:3090';
+const API_URL = 'https://protected-thicket-11339.herokuapp.com';
+// const API_URL = 'http://localhost:3090';
 
 
 export function fetchNivelsStats() {

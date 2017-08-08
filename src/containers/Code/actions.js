@@ -8,7 +8,8 @@ import {
     UPDATE_USER_NIVEL_STATS
 } from './constants';
 
-const API_URL = 'http://localhost:3090';
+const API_URL = 'https://protected-thicket-11339.herokuapp.com';
+// const API_URL = 'http://localhost:3090';
 
 export function setUserPath(userPath) {
     return {
