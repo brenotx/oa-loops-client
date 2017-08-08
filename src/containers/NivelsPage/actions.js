@@ -1,9 +1,9 @@
 import axios from "axios";
 
 import { FETCH_USER_MAX_NIVEL, SET_CURRENT_NIVEL } from './constants';
+import { config } from '../../config';
 
-const API_URL = 'https://protected-thicket-11339.herokuapp.com';
-// const API_URL = 'http://localhost:3090';
+const API_URL = config.API_URL;
 
 export function setCurrentNivel(currentNivel) {
     return {
