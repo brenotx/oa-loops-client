@@ -8,7 +8,12 @@ class SignOut extends Component {
     }
 
     render() {
-        return <div>Sorry to see you go...</div>;
+        return (
+            <div className="alert alert-dismissible alert-info col-sm-6 col-md-4 col-md-offset-4">
+                <button type="button" className="close" data-dismiss="alert">&times;</button>
+                <strong>Oh snap!</strong> <a href="#" className="alert-link">Sorry to see you go...</a>
+            </div>
+        );
     }
 }
 
