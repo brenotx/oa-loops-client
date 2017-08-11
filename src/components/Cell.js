@@ -18,7 +18,7 @@ class Cell extends Component {
     }
 
     render() {
-        let className = 'cell-back-ground cell cell-icon';
+        let className = 'cell-back-ground cell cell-icon circle';
         const white = {
             color: 'white',
             verticalAlign: 'middle',
@@ -33,11 +33,11 @@ class Cell extends Component {
         }
 
         if (this.move()) {
-            className = 'cell cell-icon good-move';
+            className = 'cell cell-icon circle good-move';
         }
 
         if (this.badMove()) {
-            className = 'cell cell-icon bad-move';
+            className = 'cell cell-icon circle bad-move';
         }
 
         return (

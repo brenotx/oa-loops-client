@@ -40,10 +40,12 @@ class NivelsPage extends Component {
 
     // TODO: Redundant logic at renderLocker and handleButtonDisabled methods
     renderNivels() {
+        let buttonClass = 'btn btn-default btn-block';
+
         return this.props.nivels.map(nivel => {
             return (
                  <div className="list-group-item" key={nivel.get('id')}>
-                    <button type="button" className="btn btn-primary btn-block" onClick={() => this.onNivelButtonClick(nivel.get('id'))} disabled={this.handleButtonDisabled((nivel.get('id')))}>
+                    <button type="button" className={buttonClass} onClick={() => this.onNivelButtonClick(nivel.get('id'))} disabled={this.handleButtonDisabled((nivel.get('id')))}>
                         Nível {nivel.get('id')} &nbsp;
                         {this.renderLocker(nivel.get('id'))}
                     </button>

@@ -10,6 +10,11 @@ body {
     background: #f8f8f8;
     margin-right: 4px;
 }
+
+.circle {
+    border-radius: 50%;
+}
+
 .active {
     background-color: #268BD2 !important;
 }

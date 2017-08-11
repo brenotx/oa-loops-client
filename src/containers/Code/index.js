@@ -295,15 +295,6 @@ class Code extends Component {
                         </div>
                     </div>
                 </div>
-
-                <div className="text-right">
-                    {/* <button className="btn btn-default" onClick={() => this.props.resetApp()}>Resetar</button>
-                    &nbsp;
-                    <button className="btn btn-default" onClick={() => this.runCode(codeProps)}>Executar</button> */}
-                    <span className="glyphicon glyphicon-refresh light-pink big-play" aria-hidden="true" onClick={() => this.props.resetApp()}></span>
-                    &nbsp;
-                    <span className="glyphicon glyphicon-play-circle light-green big-play" aria-hidden="true" onClick={() => this.runCode(codeProps)}></span>
-                </div>
                 
                 <div className="panel panel-default">
                     <div className="panel-heading">Prog</div>
@@ -317,6 +308,15 @@ class Code extends Component {
                             )}
                         </div>
                     </div>
+                </div>
+
+                <div className="text-right">
+                    {/* <button className="btn btn-default" onClick={() => this.props.resetApp()}>Resetar</button>
+                    &nbsp;
+                    <button className="btn btn-default" onClick={() => this.runCode(codeProps)}>Executar</button> */}
+                    <span className="glyphicon glyphicon-refresh light-pink big-play" aria-hidden="true" onClick={() => this.props.resetApp()}></span>
+                    &nbsp;
+                    <span className="glyphicon glyphicon-play-circle light-green big-play" aria-hidden="true" onClick={() => this.runCode(codeProps)}></span>
                 </div>
         
                 {/* TODO: Refactor modals */}
