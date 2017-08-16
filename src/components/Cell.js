@@ -6,7 +6,15 @@ import '../index.css';
 class Cell extends Component {
     // TODO: Refactor to use just one method
     active() {
-        return this.props.nivels.indexOf(this.props.id) >= 0;
+        if (this.props.nivels.indexOf(this.props.id) >= 0) {
+            if (this.props.nivels.indexOf(this.props.id) == 0) {
+                return ' start';
+            } else if (this.props.nivels.indexOf(this.props.id) == (this.props.nivels.size - 1)) {
+                return ' end';
+            } else {
+                return ' active';
+            }
+        }
     }
     
     move() {
@@ -14,7 +22,7 @@ class Cell extends Component {
     }
 
     badMove() {
-        return ((this.props.userPath.indexOf(this.props.id) >= 0) && (this.props.nivels.indexOf(this.props.id) == -1))
+        return ((this.props.userPath.indexOf(this.props.id) >= 0) && (this.props.nivels.indexOf(this.props.id) == -1));
     }
 
     render() {
@@ -28,9 +36,10 @@ class Cell extends Component {
             transform: 'translate(-50%, -50%)'
         };
         
-        if (this.active()) {
-            className += ' active';
-        }
+        // if (this.active()) {
+        //     className += ' active';
+        // }
+        className += this.active();
 
         if (this.move()) {
             className = 'cell cell-icon circle good-move';

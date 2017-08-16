@@ -28,6 +28,10 @@ class Header extends Component {
             <nav className="navbar navbar-default navbar-fixed-top">
                 <div className="container">
                     <Link to="/" className="navbar-brand">OA - loops</Link>
+                    <ul className="nav navbar-nav">
+                        <li><Link className="nav-link" to="/nivels">Níveis</Link></li>
+                        <li><Link className="nav-link" to="/stats">Estatísticas</Link></li>
+                    </ul>
                     <ul className="nav navbar-nav navbar-right">
                         {this.renderLinks()}
                     </ul>
