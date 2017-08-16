@@ -17,7 +17,7 @@ class Instructions extends Component {
                 <Col md={8} xsOffset={2}>
                     <Panel header="Instruções">
                         {this.props.gameNivelInstructions.map((icon, idx) =>
-                            <span className={`glyphicon glyphicon-${icon} light-pink small-icon`} aria-hidden="true" onClick={ () => this.props.addInstruction(icon)}></span>
+                            <span className={`glyphicon glyphicon-${icon} light-pink small-icon`} key={idx} aria-hidden="true" onClick={ () => this.props.addInstruction(icon)}></span>
                         )}
                     </Panel>
                     {/* <Panel header="Instruções">
