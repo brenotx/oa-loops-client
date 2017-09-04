@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 import {
     SET_USER_PATH,
@@ -26,32 +26,31 @@ export function resetUserPath() {
 
 export function fetchNivelStats() {
     return function(dispatch) {
-        axios.get(`${API_URL}/nivelStats`, {
-            headers: { authorization: localStorage.getItem('token') }
-        })
-        .then(response => {
-            dispatch({
-                type: FETCH_NIVEL_STATS,
-                payload: response.data
+        axios
+            .get(`${API_URL}/nivelStats`, {
+                headers: { authorization: localStorage.getItem('token') }
+            })
+            .then(response => {
+                dispatch({
+                    type: FETCH_NIVEL_STATS,
+                    payload: response.data
+                });
             });
-        });
     };
 }
 
-export function updateNivelStats({ nivelId, correctAnwsers, wrongAnwsers }) {
+export function updateNivelStats({ nivelId, correctAnwsers, wrongAnwsers, totalInstructions }) {
     return function(dispatch) {
-        axios.post(`${API_URL}/nivel`, { nivelId, correctAnwsers, wrongAnwsers })
-            .then(response => {
-                console.log("Success!");
-            });
+        axios.post(`${API_URL}/nivel`, { nivelId, correctAnwsers, wrongAnwsers, totalInstructions }).then(response => {
+            console.log('Success!');
+        });
     };
 }
 
 export function updateUserNivelStats({ user_id, maxNivel }) {
     return function(dispatch) {
-        axios.post(`${API_URL}/setUserMaxNivel`, { user_id, maxNivel })
-            .then(response => {
-                console.log("User nivel stats updated!");
-            });
+        axios.post(`${API_URL}/setUserMaxNivel`, { user_id, maxNivel }).then(response => {
+            console.log('User nivel stats updated!');
+        });
     };
 }
