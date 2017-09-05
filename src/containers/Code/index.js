@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { Map, List } from 'immutable';
-import { createStructuredSelector } from 'reselect';
-import { Panel, Col, Glyphicon, ButtonToolbar, Button, Modal } from 'react-bootstrap';
-import * as firebase from 'firebase';
+import React, { Component } from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { Map, List } from "immutable";
+import { createStructuredSelector } from "reselect";
+import { Panel, Col, Glyphicon, ButtonToolbar, Button, Modal } from "react-bootstrap";
+import * as firebase from "firebase";
 
-import { setUserPath, resetUserPath, fetchNivelStats, updateNivelStats, updateUserNivelStats } from './actions';
-import { removeInstruction, setActiveBox, resetApp, nextNivel, setProgRepeat } from '../../actions/index';
+import { setUserPath, resetUserPath, fetchNivelStats, updateNivelStats, updateUserNivelStats } from "./actions";
+import { removeInstruction, setActiveBox, resetApp, nextNivel, setProgRepeat } from "../../actions/index";
 import {
     makeSelectMainInstructions,
     makeSelectProgInstructions,
@@ -15,13 +15,13 @@ import {
     makeSelectProgRepeat,
     makeSelectNivelStats
     // makeSelectUserID
-} from './selectors';
+} from "./selectors";
 
 const validMoves = Map({
-    'arrow-right': 1,
-    'arrow-left': -1,
-    'arrow-up': -10,
-    'arrow-down': 10
+    "arrow-right": 1,
+    "arrow-left": -1,
+    "arrow-up": -10,
+    "arrow-down": 10
 });
 
 class Code extends Component {
@@ -50,9 +50,9 @@ class Code extends Component {
     // TODO: Write a pure function
     isActive(boxName) {
         if (boxName === this.props.activeBox) {
-            return 'jumbotron active-box';
+            return "jumbotron active-box";
         } else {
-            return 'jumbotron';
+            return "jumbotron";
         }
     }
 
@@ -77,27 +77,22 @@ class Code extends Component {
     }
 
     setNivelStats(codeResult) {
-        // This code assumes that your database has the nivel registers
-        let currentNivelStats = this.props.nivelStats.filter(obj => {
-            return obj.nivelId === this.props.gameNivelId;
-        });
+        const nivelId = this.props.gameNivelId;
         if (codeResult) {
-            this.setState({ showWinModal: true });
-            currentNivelStats.correctAnwsers += 1;
-            const { nivelId, correctAnwsers, wrongAnwsers } = currentNivelStats;
+            // Update nivel stats
+            const isAnswerCorrect = true;
+            const numInstructions = this.props.progInstructions.size + this.props.mainInstructions.size;
+            this.props.updateNivelStats({ nivelId, isAnswerCorrect, numInstructions });
 
-            const totalInstructions = [{ numInstructions: 1, numOccurrence: 1 }];
-
-            this.props.updateNivelStats({ nivelId, correctAnwsers, wrongAnwsers, totalInstructions });
-
-            const user_id = localStorage.getItem('user_id');
+            // Set user max nivel
+            const user_id = localStorage.getItem("user_id");
             const maxNivel = this.props.gameNivelId;
-            // const user_id = this.props.user_id;
             this.props.updateUserNivelStats({ user_id, maxNivel });
+            this.setState({ showWinModal: true });
         } else {
-            currentNivelStats.wrongAnwsers += 1;
+            const isAnswerCorrect = false;
+            this.props.updateNivelStats({ nivelId, isAnswerCorrect });
             this.setState({ showLoseModal: true });
-            console.log('perdeu');
         }
     }
 
@@ -113,16 +108,16 @@ class Code extends Component {
         let col = parseInt(cellStartPosition[1], 10);
         const cellMovesNumber = moves.map(move => {
             switch (move) {
-                case 'arrow-right':
+                case "arrow-right":
                     col += 1;
                     break;
-                case 'arrow-left':
+                case "arrow-left":
                     col -= 1;
                     break;
-                case 'arrow-up':
+                case "arrow-up":
                     row -= 1;
                     break;
-                case 'arrow-down':
+                case "arrow-down":
                     row += 1;
                     break;
             }
@@ -180,7 +175,7 @@ class Code extends Component {
      */
     applyLoopInstructions(moves, progMoves) {
         moves.map((elem, idx) => {
-            if (elem === 'repeat') {
+            if (elem === "repeat") {
                 moves = moves.update(idx, val => progMoves);
                 moves = List().concat(...moves);
                 this.applyLoopInstructions(moves);
@@ -271,7 +266,7 @@ class Code extends Component {
             // this.props.history.push('/game');
             // this.props.nextNivel();
         } else {
-            this.props.history.push('/');
+            this.props.history.push("/");
         }
     }
 
@@ -294,7 +289,7 @@ class Code extends Component {
                 <div className="panel panel-default">
                     <div className="panel-heading">Main</div>
                     <div className="panel-body">
-                        <div className={this.isActive('main')} onClick={() => this.props.setActiveBox('main')}>
+                        <div className={this.isActive("main")} onClick={() => this.props.setActiveBox("main")}>
                             {mainInstructions.map((icon, idx) => (
                                 <Button key={idx} bsStyle="primary" onClick={() => this.props.removeInstruction(idx)}>
                                     <Glyphicon glyph={icon} />
@@ -308,7 +303,7 @@ class Code extends Component {
                     <div className="panel-heading">Prog</div>
                     <div className="panel-body">
                         {this.renderSelect()}
-                        <div className={this.isActive('prog')} onClick={() => this.props.setActiveBox('prog')}>
+                        <div className={this.isActive("prog")} onClick={() => this.props.setActiveBox("prog")}>
                             {progInstructions.map((icon, idx) => (
                                 <Button key={idx} bsStyle="primary" onClick={() => this.props.removeInstruction(idx)}>
                                     <Glyphicon glyph={icon} />
