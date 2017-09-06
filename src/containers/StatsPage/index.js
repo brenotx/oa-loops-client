@@ -24,17 +24,28 @@ class StatsPage extends Component {
         return data;
     }
 
-    renderInstructionsCharts(data2) {
-        return (
-            <BarChart width={600} height={300} data={data2} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                <XAxis dataKey="name" />
-                <YAxis />
-                <CartesianGrid strokeDasharray="3 3" />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="pv" fill="#8884d8" />
-            </BarChart>
-        );
+    renderInstructionsCharts(nivelsStats) {
+        const instructionsCharts = nivelsStats.map(item => (
+            <div className="panel panel-default" key={item.nivelId}>
+                <div className="panel-heading">Nível {item.nivelId}</div>
+                <div className="panel-body">
+                    <BarChart
+                        width={600}
+                        height={300}
+                        data={item.totalInstructions}
+                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                    >
+                        <XAxis dataKey="numInstructions" />
+                        <YAxis />
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <Tooltip />
+                        <Legend />
+                        <Bar dataKey="numOccurrence" fill="#8884d8" />
+                    </BarChart>
+                </div>
+            </div>
+        ));
+        return <div>{instructionsCharts}</div>;
     }
 
     render() {
@@ -68,7 +79,7 @@ class StatsPage extends Component {
                     <Bar dataKey="corretas" fill="#8884d8" minPointSize={5} />
                     <Bar dataKey="erradas" fill="#82ca9d" minPointSize={10} />
                 </BarChart>
-                {this.renderInstructionsCharts(data2)}
+                <div>{this.renderInstructionsCharts(nivelsStats)}</div>
             </div>
         );
     }

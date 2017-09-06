@@ -31,18 +31,13 @@ class Code extends Component {
         this.state = {
             showWinModal: false,
             showLoseModal: false
-            // nivelStats: Map({
-            //     tries: 0,
-            //     correctAnwsers: 0,
-            //     wrongAnwsers: 0
-            // })
         };
         this.runCode = this.runCode.bind(this);
     }
 
-    componentDidMount() {
-        this.props.fetchNivelStats();
-    }
+    // componentDidMount() {
+    //     this.props.fetchNivelStats();
+    // }
 
     /**
     * Whenever the activeBox changes this method is called.
@@ -332,7 +327,7 @@ class Code extends Component {
 
                 {/* TODO: Refactor modals */}
                 <Modal bsSize="small" show={this.state.showWinModal}>
-                    <Modal.Body>Parabéns você venceu!!!</Modal.Body>
+                    <Modal.Body>Parabéns você passou para o próximo nível!!!</Modal.Body>
                     <Modal.Footer>
                         <Button onClick={() => this.continue()}>Continuar</Button>
                     </Modal.Footer>
