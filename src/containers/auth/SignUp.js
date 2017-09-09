@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from "redux-form/immutable";
-import { connect } from "react-redux";
+import { Field, reduxForm } from 'redux-form/immutable';
+import { connect } from 'react-redux';
 
 import { signupUser } from './actions';
+import Codex from '../../components/Codex';
 
 class SignUp extends Component {
-    
     handleFormSubmit(values) {
         this.props.signupUser(values, this.props.history);
     }
@@ -22,26 +22,34 @@ class SignUp extends Component {
 
     renderField(field) {
         const { meta: { touched, error } } = field;
-        const className = `${touched && error ? "has-danger" : ""}`;
+        const className = `${touched && error ? 'has-danger' : ''}`;
 
         return (
             <div className={className}>
                 <label>{field.label}</label>
                 <input className="form-control" type={field.type} {...field.input} />
-                <div className="text-warning">
-                {touched ? error : ""}
-                </div>
+                <div className="text-warning">{touched ? error : ''}</div>
             </div>
         );
     }
 
     render() {
         const { handleSubmit } = this.props;
+        const bigLogo = {
+            fontSize: '200%'
+        };
 
         return (
             <div className="col-sm-6 col-md-4 col-md-offset-4">
                 <form className="well bs-component" onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
                     <fieldset className="form-group">
+                        <legend>
+                            <div className="text-center">
+                                <span style={bigLogo}>
+                                    <Codex />
+                                </span>
+                            </div>
+                        </legend>
                         <Field
                             label="Email:"
                             name="email"
@@ -71,7 +79,9 @@ class SignUp extends Component {
                     </fieldset>
                     {this.renderAlert()}
                     <div className="text-right">
-                        <button className="btn btn-primary" action="submit">Sign up!</button>
+                        <button className="btn btn-primary" action="submit">
+                            Sign up!
+                        </button>
                     </div>
                 </form>
             </div>
@@ -97,7 +107,7 @@ function validate(values) {
     if (values.password !== values.passwordConfirm) {
         errors.password = 'Passwords must match';
     }
-    
+
     return errors;
 }
 
