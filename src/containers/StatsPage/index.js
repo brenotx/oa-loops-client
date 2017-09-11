@@ -26,21 +26,22 @@ class StatsPage extends Component {
 
     renderInstructionsCharts(nivelsStats) {
         const instructionsCharts = nivelsStats.map(item => (
-            <div className="panel panel-default" key={item.nivelId}>
-                <div className="panel-heading">Nível {item.nivelId}</div>
-                <div className="panel-body">
+            <div className="col-lg-4">
+                <div className="well" key={item.nivelId}>
+                    Nível {item.nivelId}
                     <BarChart
-                        width={600}
-                        height={300}
+                        width={300}
+                        height={150}
+                        barSize={20}
                         data={item.totalInstructions}
                         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                     >
-                        <XAxis dataKey="numInstructions" />
+                        <XAxis dataKey="numOccurrence" />
                         <YAxis />
                         <CartesianGrid strokeDasharray="3 3" />
                         <Tooltip />
                         <Legend />
-                        <Bar dataKey="numOccurrence" fill="#8884d8" />
+                        <Bar dataKey="numInstructions" fill="#8884d8" />
                     </BarChart>
                 </div>
             </div>
@@ -59,27 +60,28 @@ class StatsPage extends Component {
         ));
 
         const data = this.formatBarData(nivelsStats);
-        const data2 = [
-            { name: "Page A", uv: 4000, pv: 2400, amt: 2400 },
-            { name: "Page B", uv: 3000, pv: 1398, amt: 2210 },
-            { name: "Page C", uv: 2000, pv: 9800, amt: 2290 },
-            { name: "Page D", uv: 2780, pv: 3908, amt: 2000 },
-            { name: "Page E", uv: 1890, pv: 4800, amt: 2181 },
-            { name: "Page F", uv: 2390, pv: 3800, amt: 2500 },
-            { name: "Page G", uv: 3490, pv: 4300, amt: 2100 }
-        ];
+
         return (
             <div>
-                <BarChart width={600} height={300} data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <Tooltip />
-                    <Legend />
-                    <Bar dataKey="corretas" fill="#8884d8" minPointSize={5} />
-                    <Bar dataKey="erradas" fill="#82ca9d" minPointSize={10} />
-                </BarChart>
-                <div>{this.renderInstructionsCharts(nivelsStats)}</div>
+                <div className="row">
+                    <div className="col-md-2 col-md-offset-2">
+                        <BarChart
+                            width={600}
+                            height={300}
+                            data={data}
+                            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                        >
+                            <XAxis dataKey="name" />
+                            <YAxis />
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <Tooltip />
+                            <Legend />
+                            <Bar dataKey="corretas" fill="#8884d8" minPointSize={5} />
+                            <Bar dataKey="erradas" fill="#82ca9d" minPointSize={10} />
+                        </BarChart>
+                    </div>
+                </div>
+                <div className="row">{this.renderInstructionsCharts(nivelsStats)}</div>
             </div>
         );
     }
