@@ -25,10 +25,15 @@ class StatsPage extends Component {
     }
 
     renderInstructionsCharts(nivelsStats) {
+        // const orderedNivelStats = nivelsStats.sort(function(a, b) {
+        //     if (a.numInstructions < b.numInstructions) return -1;
+        //     if (a.numInstructions > b.numInstructions) return 1;
+        //     return 0;
+        // });
         const instructionsCharts = nivelsStats.map(item => (
             <div className="col-lg-4">
                 <div className="well" key={item.nivelId}>
-                    Nível {item.nivelId}
+                    <span className="label label-default">Nível {item.nivelId}</span>
                     <BarChart
                         width={300}
                         height={150}
@@ -36,12 +41,14 @@ class StatsPage extends Component {
                         data={item.totalInstructions}
                         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                     >
-                        <XAxis dataKey="numOccurrence" />
+                        <XAxis dataKey="numInstructions" />
                         <YAxis />
                         <CartesianGrid strokeDasharray="3 3" />
-                        <Tooltip />
-                        <Legend />
-                        <Bar dataKey="numInstructions" fill="#8884d8" />
+                        <Tooltip payload={[{ name: "numOccurrence", value: "Instruções" }]} />
+                        <Legend
+                            payload={[{ id: "numInstructions", value: "Instruções", type: "rect", color: "#8884d8" }]}
+                        />
+                        <Bar dataKey="numOccurrence" fill="#8884d8" />
                     </BarChart>
                 </div>
             </div>
