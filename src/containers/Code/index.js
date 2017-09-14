@@ -212,14 +212,10 @@ class Code extends Component {
     checkCode2(path, moves) {
         const self = this;
         let stop = false;
-        let promises = [];
+        let promises = List();
         for (let i = 0; i < moves.size; i++) {
             if (moves.get(i) === path.get(i) || !stop) {
-                if (moves.get(i) != path.get(i)) {
-                    stop = true;
-                    break;
-                }
-                const promise = (function(index) {
+                const promise = (index => {
                     return new Promise(resolve =>
                         setTimeout(() => {
                             self.props.setUserPath(moves.get(i));
@@ -227,8 +223,12 @@ class Code extends Component {
                         }, i * 1000)
                     );
                 })(i);
-                promises.push(promise);
-                // return promise;
+                if (moves.get(i) != path.get(i)) {
+                    stop = true;
+                    promises = promises.push(promise);
+                    break;
+                }
+                promises = promises.push(promise);
             } else {
                 break;
             }
