@@ -10,7 +10,7 @@ class Header extends Component {
             return (
                 <li className="nav-item">
                     <Link className="nav-link" to="/signout">
-                        Sign Out
+                        Sair
                     </Link>
                 </li>
             );
@@ -18,12 +18,12 @@ class Header extends Component {
             return [
                 <li className="nav-item" key={1}>
                     <Link className="nav-link" to="/signin">
-                        Sign In
+                        Entrar
                     </Link>
                 </li>,
                 <li className="nav-item" key={2}>
                     <Link className="nav-link" to="/signup">
-                        Sign Up
+                        Registrar
                     </Link>
                 </li>
             ];
@@ -50,11 +50,11 @@ class Header extends Component {
                     </Link>
                     <ul className="nav navbar-nav">
                         {this.renderNiveisLink()}
-                        {/* <li>
+                        <li>
                             <Link className="nav-link" to="/stats">
                                 Estatísticas
                             </Link>
-                        </li> */}
+                        </li>
                     </ul>
                     <ul className="nav navbar-nav navbar-right">{this.renderLinks()}</ul>
                 </div>
