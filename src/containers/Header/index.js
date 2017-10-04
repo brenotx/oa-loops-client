@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
-import Codex from '../../components/Codex';
+import Codex from "../../components/Codex";
 
 class Header extends Component {
     renderLinks() {
@@ -65,7 +65,7 @@ class Header extends Component {
 
 function mapStateToProps(state) {
     return {
-        authenticated: state.getIn(['auth', 'authenticated'])
+        authenticated: state.getIn(["auth", "authenticated"])
     };
 }
 

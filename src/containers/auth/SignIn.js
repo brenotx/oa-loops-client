@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form/immutable';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { Field, reduxForm } from "redux-form/immutable";
+import { connect } from "react-redux";
 
-import { signinUser } from './actions';
-import Codex from '../../components/Codex';
+import { signinUser } from "./actions";
+import Codex from "../../components/Codex";
 
 class SignIn extends Component {
     handleFormSubmit(values) {
@@ -23,13 +23,13 @@ class SignIn extends Component {
 
     renderField(field) {
         const { meta: { touched, error } } = field;
-        const className = `form-group ${touched && error ? 'has-danger' : ''}`;
+        const className = `form-group ${touched && error ? "has-danger" : ""}`;
 
         return (
             <div className={className}>
                 <label>{field.label}</label>
                 <input className="form-control" type={field.type} {...field.input} />
-                <div className="text-help">{touched ? error : ''}</div>
+                <div className="text-help">{touched ? error : ""}</div>
             </div>
         );
     }
@@ -37,7 +37,7 @@ class SignIn extends Component {
     render() {
         const { handleSubmit } = this.props;
         const bigLogo = {
-            fontSize: '200%'
+            fontSize: "200%"
         };
         return (
             <div className="col-sm-6 col-md-4 col-md-offset-4">
@@ -60,7 +60,7 @@ class SignIn extends Component {
                     </fieldset>
                     <fieldset className="form-group">
                         <Field
-                            label="Password:"
+                            label="Senha:"
                             name="password"
                             component={this.renderField}
                             type="password"
@@ -70,7 +70,7 @@ class SignIn extends Component {
                     {this.renderAlert()}
                     <div className="text-right">
                         <button className="btn btn-primary" action="submit">
-                            Sign in
+                            Entrar
                         </button>
                     </div>
                 </form>
@@ -80,9 +80,9 @@ class SignIn extends Component {
 }
 
 function mapStateToProps(state) {
-    return { errorMessage: state.getIn(['auth', 'error']) };
+    return { errorMessage: state.getIn(["auth", "error"]) };
 }
 
 export default reduxForm({
-    form: 'SignInForm'
+    form: "SignInForm"
 })(connect(mapStateToProps, { signinUser })(SignIn));
