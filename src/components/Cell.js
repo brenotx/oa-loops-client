@@ -7,22 +7,22 @@ class Cell extends Component {
     // TODO: Refactor to use just one method
     active() {
         if (this.props.nivels.indexOf(this.props.id) >= 0) {
-            if (this.props.nivels.indexOf(this.props.id) == 0) {
+            if (this.props.nivels.indexOf(this.props.id) === 0) {
                 return ' start';
-            } else if (this.props.nivels.indexOf(this.props.id) == (this.props.nivels.size - 1)) {
+            } else if (this.props.nivels.indexOf(this.props.id) === this.props.nivels.size - 1) {
                 return ' end';
             } else {
                 return ' active';
             }
         }
     }
-    
+
     move() {
         return this.props.userPath.indexOf(this.props.id) >= 0;
     }
 
     badMove() {
-        return ((this.props.userPath.indexOf(this.props.id) >= 0) && (this.props.nivels.indexOf(this.props.id) == -1));
+        return this.props.userPath.indexOf(this.props.id) >= 0 && this.props.nivels.indexOf(this.props.id) === -1;
     }
 
     render() {
@@ -35,7 +35,7 @@ class Cell extends Component {
             left: '50%',
             transform: 'translate(-50%, -50%)'
         };
-        
+
         // if (this.active()) {
         //     className += ' active';
         // }

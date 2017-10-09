@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import * as actions from "./actions";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from './actions';
 
 class SignOut extends Component {
     componentWillMount() {
@@ -8,7 +8,7 @@ class SignOut extends Component {
     }
 
     componentDidMount() {
-        this.props.history.push("/signin");
+        this.props.history.push('/signin');
     }
 
     // This code is not even being rendered, cuz we have a redirect.
@@ -18,9 +18,7 @@ class SignOut extends Component {
                 <button type="button" className="close" data-dismiss="alert">
                     &times;
                 </button>
-                <a href="#" className="alert-link">
-                    Usuário deslogado com sucesso.
-                </a>
+                <a className="alert-link">Usuário deslogado com sucesso.</a>
             </div>
         );
     }

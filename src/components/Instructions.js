@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Row, Col, Panel, Glyphicon, Button } from 'react-bootstrap';
+import { Row, Col, Panel } from 'react-bootstrap';
 
 import { addInstruction } from '../actions/index';
 
 class Instructions extends Component {
-    
-
     /* <button className="btn btn-default" key={idx} onClick={ () => this.props.addInstruction(icon)}>
             <Glyphicon glyph={icon} />
         </button> */
@@ -16,9 +14,14 @@ class Instructions extends Component {
             <Row>
                 <Col md={8} xsOffset={2}>
                     <Panel header="Instruções">
-                        {this.props.gameNivelInstructions.map((icon, idx) =>
-                            <span className={`glyphicon glyphicon-${icon} light-pink small-icon`} key={idx} aria-hidden="true" onClick={ () => this.props.addInstruction(icon)}></span>
-                        )}
+                        {this.props.gameNivelInstructions.map((icon, idx) => (
+                            <span
+                                className={`glyphicon glyphicon-${icon} light-pink small-icon`}
+                                key={idx}
+                                aria-hidden="true"
+                                onClick={() => this.props.addInstruction(icon)}
+                            />
+                        ))}
                     </Panel>
                     {/* <Panel header="Instruções">
                         {this.getInstructions().map( (icon, idx) =>

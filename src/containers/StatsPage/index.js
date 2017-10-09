@@ -1,11 +1,10 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { createStructuredSelector } from "reselect";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
-import { fetchNivelsStats } from "./actions";
-import { selectNivelsStats } from "./selectors";
+import { fetchNivelsStats } from './actions';
+import { selectNivelsStats } from './selectors';
 
 class StatsPage extends Component {
     componentDidMount() {
@@ -14,12 +13,12 @@ class StatsPage extends Component {
 
     formatBarData(nivelsStats) {
         let data = [];
-        nivelsStats.map(item => {
+        data = nivelsStats.map(item => {
             let obj = {};
             obj.name = `Nível ${item.nivelId}`;
             obj.corretas = item.correctAnwsers;
             obj.erradas = item.wrongAnwsers;
-            data.push(obj);
+            return obj;
         });
         return data;
     }
@@ -31,8 +30,8 @@ class StatsPage extends Component {
         //     return 0;
         // });
         const instructionsCharts = nivelsStats.map(item => (
-            <div className="col-lg-4">
-                <div className="well" key={item.nivelId}>
+            <div className="col-lg-4" key={item.nivelId}>
+                <div className="well">
                     <span className="label label-default">Nível {item.nivelId}</span>
                     <BarChart
                         width={300}
@@ -44,9 +43,9 @@ class StatsPage extends Component {
                         <XAxis dataKey="numInstructions" />
                         <YAxis />
                         <CartesianGrid strokeDasharray="3 3" />
-                        <Tooltip payload={[{ name: "numOccurrence", value: "Instruções" }]} />
+                        <Tooltip payload={[{ name: 'numOccurrence', value: 'Instruções' }]} />
                         <Legend
-                            payload={[{ id: "numInstructions", value: "Instruções", type: "rect", color: "#8884d8" }]}
+                            payload={[{ id: 'numInstructions', value: 'Instruções', type: 'rect', color: '#8884d8' }]}
                         />
                         <Bar dataKey="numOccurrence" fill="#8884d8" />
                     </BarChart>
@@ -57,14 +56,14 @@ class StatsPage extends Component {
     }
 
     render() {
-        const nivelsStats = this.props.nivelsStats.get("nivelsStats");
-        const tableRow = nivelsStats.map(item => (
-            <tr key={item._id}>
-                <td className="text-center">{item.nivelId}</td>
-                <td className="text-center">{item.correctAnwsers}</td>
-                <td className="text-center">{item.wrongAnwsers}</td>
-            </tr>
-        ));
+        const nivelsStats = this.props.nivelsStats.get('nivelsStats');
+        // const tableRow = nivelsStats.map(item => (
+        //     <tr key={item._id}>
+        //         <td className="text-center">{item.nivelId}</td>
+        //         <td className="text-center">{item.correctAnwsers}</td>
+        //         <td className="text-center">{item.wrongAnwsers}</td>
+        //     </tr>
+        // ));
 
         const data = this.formatBarData(nivelsStats);
 
