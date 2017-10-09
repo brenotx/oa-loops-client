@@ -14,7 +14,8 @@ class SignUp extends Component {
         if (this.props.errorMessage) {
             return (
                 <div className="alert alert-danger">
-                    <strong>Oops!</strong> {this.props.errorMessage}
+                    Senha errada ou email não cadastrado.
+                    {/*  <strong>Oops!</strong> {this.props.errorMessage} */}
                 </div>
             );
         }
@@ -60,7 +61,7 @@ class SignUp extends Component {
                     </fieldset>
                     <fieldset className="form-group">
                         <Field
-                            label="Password:"
+                            label="Senha:"
                             name="password"
                             component={this.renderField}
                             type="password"
@@ -80,7 +81,7 @@ class SignUp extends Component {
                     {this.renderAlert()}
                     <div className="text-right">
                         <button className="btn btn-primary" action="submit">
-                            Sign up!
+                            Entrar
                         </button>
                     </div>
                 </form>
