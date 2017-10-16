@@ -13,6 +13,7 @@ class StatsPage extends Component {
 
     formatBarData(nivelsStats) {
         let data = [];
+        const orderedNivelsStats = nivelsStats.sort(this.compare);
         data = nivelsStats.map(item => {
             let obj = {};
             obj.name = `Nível ${item.nivelId}`;
@@ -21,6 +22,12 @@ class StatsPage extends Component {
             return obj;
         });
         return data;
+    }
+
+    compare(a, b) {
+        if (a.nivelId < b.nivelId) return -1;
+        if (a.nivelId > b.nivelId) return 1;
+        return 0;
     }
 
     renderInstructionsCharts(nivelsStats) {
