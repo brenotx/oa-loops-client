@@ -71,7 +71,7 @@ class SignUp extends Component {
 
                     <fieldset className="form-group">
                         <Field
-                            label="Password Confirm:"
+                            label="Confirmar Senha:"
                             name="passwordConfirm"
                             component={this.renderField}
                             type="password"
@@ -94,19 +94,19 @@ function validate(values) {
     const errors = {};
 
     if (!values.email) {
-        errors.email = 'Please enter an email';
+        errors.email = 'Digite um email.';
     }
 
     if (!values.password) {
-        errors.password = 'Please enter a password';
+        errors.password = 'Digite uma senha.';
     }
 
     if (!values.passwordConfirm) {
-        errors.passwordConfirm = 'Please enter a password confirmation';
+        errors.passwordConfirm = 'Digite a senha novamente.';
     }
 
     if (values.password !== values.passwordConfirm) {
-        errors.password = 'Passwords must match';
+        errors.password = 'Senhas devem ser iguais.';
     }
 
     return errors;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form/immutable';
+import { Field, reduxForm, change } from 'redux-form/immutable';
 import { connect } from 'react-redux';
 
 import { signinUser } from './actions';
@@ -9,6 +9,7 @@ class SignIn extends Component {
     handleFormSubmit(values) {
         const { email, password } = values;
         this.props.signinUser({ email, password }, this.props.history);
+        this.props.dispatch(change('SignInForm', 'password', ''));
     }
 
     renderAlert() {
