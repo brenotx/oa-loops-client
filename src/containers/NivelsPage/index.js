@@ -5,7 +5,6 @@ import { createStructuredSelector } from 'reselect';
 import { fetchUserMaxNivel, setCurrentNivel } from './actions';
 import { makeSelectNivels, makeSelectUserMaxNivel } from './selectors';
 
-
 class NivelsPage extends Component {
     // constructor(props) {
     //     super(props);
@@ -29,23 +28,26 @@ class NivelsPage extends Component {
 
     renderLocker(nivelId) {
         if (nivelId > this.props.userMaxNivel + 1) {
-            return <span className="glyphicon glyphicon-lock"></span>;
+            return <span className="glyphicon glyphicon-lock" />;
         }
         return;
     }
 
     onNivelButtonClick(selectedNivelId) {
-        this.props.history.push('/game', { nivelId: selectedNivelId});
+        this.props.history.push('/game', { nivelId: selectedNivelId });
     }
 
-    // TODO: Redundant logic at renderLocker and handleButtonDisabled methods
-    renderNivels() {
+    renderNiveisList() {
         let buttonClass = 'btn btn-default btn-block';
-
         return this.props.nivels.map(nivel => {
             return (
-                 <div className="list-group-item" key={nivel.get('id')}>
-                    <button type="button" className={buttonClass} onClick={() => this.onNivelButtonClick(nivel.get('id'))} disabled={this.handleButtonDisabled((nivel.get('id')))}>
+                <div className="list-group-item" key={nivel.get('id')}>
+                    <button
+                        type="button"
+                        className={buttonClass}
+                        onClick={() => this.onNivelButtonClick(nivel.get('id'))}
+                        disabled={this.handleButtonDisabled(nivel.get('id'))}
+                    >
                         Nível {nivel.get('id')} &nbsp;
                         {this.renderLocker(nivel.get('id'))}
                     </button>
@@ -54,12 +56,24 @@ class NivelsPage extends Component {
         });
     }
 
-    render() {
+    // TODO: Redundant logic at renderLocker and handleButtonDisabled methods
+    renderNivels() {
+        let buttonClass = 'btn btn-default btn-block';
+
         return (
             <div>
-                { this.renderNivels() }
+                <div className="list-group-item">
+                    <button type="button" className={buttonClass} onClick={() => this.props.history.push('/guide')}>
+                        Tutorial
+                    </button>
+                </div>
+                {this.renderNiveisList()}
             </div>
         );
+    }
+
+    render() {
+        return <div>{this.renderNivels()}</div>;
     }
 }
 
